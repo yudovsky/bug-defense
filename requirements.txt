@@ -1,0 +1,28 @@
+# Core simulation
+numpy>=1.26
+scipy>=1.12
+numba>=0.58
+
+# Plotting, animation and analysis
+matplotlib>=3.8
+pillow>=10.0
+pandas>=2.0
+
+# Validation benchmarks (inverse adding-doubling reference)
+iadpython>=0.5
+
+# Apple Silicon GPU backend (macOS only; the beetle runners use the GPU engines)
+pyobjc-core>=10.0; sys_platform == "darwin"
+pyobjc-framework-Metal>=10.0; sys_platform == "darwin"
+
+# LaserSim desktop app (./run.sh ui)
+Flask>=3.0
+pywebview>=5.0
+pyobjc-framework-Cocoa>=10.0; sys_platform == "darwin"
+pyobjc-framework-WebKit>=10.0; sys_platform == "darwin"
+
+# Tests
+pytest>=8.0
+
+# Optional: only needed to re-run the figure digitisers in knowledge/simulation_lit_comparison
+# pymupdf

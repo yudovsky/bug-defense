@@ -1,0 +1,419 @@
+{
+ "fig5_50W": {
+  "vap_width": {
+   "calibration_residual": 0.0027406630029069845,
+   "speeds_mm_s": [
+    0.5,
+    0.75,
+    1.0
+   ],
+   "exp": [
+    {
+     "value": 4.527,
+     "bar_lo": 3.779,
+     "bar_hi": 5.419
+    },
+    {
+     "value": 3.367,
+     "bar_lo": 2.781,
+     "bar_hi": 3.827
+    },
+    {
+     "value": 2.743,
+     "bar_lo": 2.474,
+     "bar_hi": 2.925
+    }
+   ],
+   "dop": [
+    {
+     "value": 2.772,
+     "bar_lo": 2.676,
+     "bar_hi": 2.925
+    },
+    {
+     "value": 2.398,
+     "bar_lo": 2.273,
+     "bar_hi": 2.522
+    },
+    {
+     "value": 2.225,
+     "bar_lo": 2.072,
+     "bar_hi": 2.321
+    }
+   ],
+   "nodop": [
+    {
+     "value": 1.937,
+     "bar_lo": 1.899,
+     "bar_hi": 2.215
+    },
+    {
+     "value": 1.534,
+     "bar_lo": 1.496,
+     "bar_hi": 1.774
+    },
+    {
+     "value": 0.892,
+     "bar_lo": 0.892,
+     "bar_hi": 1.17
+    }
+   ]
+  },
+  "vap_depth": {
+   "calibration_residual": 0.0017890312096318084,
+   "speeds_mm_s": [
+    0.5,
+    0.75,
+    1.0
+   ],
+   "exp": [
+    {
+     "value": 3.141,
+     "bar_lo": 2.677,
+     "bar_hi": 3.716
+    },
+    {
+     "value": 1.87,
+     "bar_lo": 1.278,
+     "bar_hi": 2.517
+    },
+    {
+     "value": 1.63,
+     "bar_lo": 0.983,
+     "bar_hi": 2.222
+    }
+   ],
+   "dop": [
+    {
+     "value": 3.812,
+     "bar_lo": 3.796,
+     "bar_hi": 4.004
+    },
+    {
+     "value": 2.222,
+     "bar_lo": 2.198,
+     "bar_hi": 2.397
+    },
+    {
+     "value": 1.502,
+     "bar_lo": 1.398,
+     "bar_hi": 1.598
+    }
+   ],
+   "nodop": [
+    {
+     "value": 3.508,
+     "bar_lo": 3.508,
+     "bar_hi": 3.668
+    },
+    {
+     "value": 1.926,
+     "bar_lo": 1.974,
+     "bar_hi": 2.126
+    },
+    {
+     "value": 1.039,
+     "bar_lo": 1.031,
+     "bar_hi": 1.23
+    }
+   ]
+  },
+  "vap_area": {
+   "calibration_residual": 0.005481326005813969,
+   "speeds_mm_s": [
+    0.5,
+    0.75,
+    1.0
+   ],
+   "exp": [
+    {
+     "value": 8.863,
+     "bar_lo": 7.942,
+     "bar_hi": 10.052
+    },
+    {
+     "value": 3.913,
+     "bar_lo": 1.956,
+     "bar_hi": 6.042
+    },
+    {
+     "value": 3.088,
+     "bar_lo": 1.956,
+     "bar_hi": 4.047
+    }
+   ],
+   "dop": [
+    {
+     "value": 7.788,
+     "bar_lo": 7.769,
+     "bar_hi": 8.268
+    },
+    {
+     "value": 3.74,
+     "bar_lo": 3.702,
+     "bar_hi": 4.162
+    },
+    {
+     "value": 2.417,
+     "bar_lo": 2.014,
+     "bar_hi": 2.493
+    }
+   ],
+   "nodop": [
+    {
+     "value": 5.026,
+     "bar_lo": 5.026,
+     "bar_hi": 5.582
+    },
+    {
+     "value": 2.206,
+     "bar_lo": 2.148,
+     "bar_hi": 2.666
+    },
+    {
+     "value": 0.786,
+     "bar_lo": 0.728,
+     "bar_hi": 1.342
+    }
+   ]
+  },
+  "coag_width": {
+   "calibration_residual": 2.1316282072803006e-14,
+   "speeds_mm_s": [
+    0.5,
+    0.75,
+    1.0
+   ],
+   "exp": [
+    {
+     "value": 7.487,
+     "bar_lo": 7.232,
+     "bar_hi": 7.946
+    },
+    {
+     "value": 6.212,
+     "bar_lo": 5.625,
+     "bar_hi": 6.747
+    },
+    {
+     "value": 5.676,
+     "bar_lo": 5.14,
+     "bar_hi": 6.059
+    }
+   ],
+   "dop": [
+    {
+     "value": 9.324,
+     "bar_lo": 9.069,
+     "bar_hi": 9.732
+    },
+    {
+     "value": 8.457,
+     "bar_lo": 8.074,
+     "bar_hi": 8.712
+    },
+    {
+     "value": 7.666,
+     "bar_lo": 7.258,
+     "bar_hi": 7.946
+    }
+   ],
+   "nodop": [
+    {
+     "value": 11.849,
+     "bar_lo": 11.722,
+     "bar_hi": 12.564
+    },
+    {
+     "value": 10.446,
+     "bar_lo": 10.319,
+     "bar_hi": 11.059
+    },
+    {
+     "value": 9.171,
+     "bar_lo": 8.814,
+     "bar_hi": 9.579
+    }
+   ]
+  },
+  "coag_depth": {
+   "calibration_residual": 0.00325612098826511,
+   "speeds_mm_s": [
+    0.5,
+    0.75,
+    1.0
+   ],
+   "exp": [
+    {
+     "value": 2.752,
+     "bar_lo": 2.573,
+     "bar_hi": 3.031
+    },
+    {
+     "value": 2.317,
+     "bar_lo": 1.971,
+     "bar_hi": 2.629
+    },
+    {
+     "value": 2.227,
+     "bar_lo": 1.669,
+     "bar_hi": 2.73
+    }
+   ],
+   "dop": [
+    {
+     "value": 3.221,
+     "bar_lo": 3.053,
+     "bar_hi": 3.344
+    },
+    {
+     "value": 3.321,
+     "bar_lo": 3.154,
+     "bar_hi": 3.444
+    },
+    {
+     "value": 3.321,
+     "bar_lo": 3.154,
+     "bar_hi": 3.444
+    }
+   ],
+   "nodop": [
+    {
+     "value": 4.415,
+     "bar_lo": 4.382,
+     "bar_hi": 4.739
+    },
+    {
+     "value": 5.085,
+     "bar_lo": 4.973,
+     "bar_hi": 5.297
+    },
+    {
+     "value": 5.186,
+     "bar_lo": 5.074,
+     "bar_hi": 5.442
+    }
+   ]
+  }
+ },
+ "fig7_10W": {
+  "coag_width": {
+   "calibration_residual": 0.0024278621873321526,
+   "speeds_mm_s": [
+    1.0,
+    1.25,
+    1.5
+   ],
+   "exp": [
+    {
+     "value": 3.148,
+     "bar_lo": 3.079,
+     "bar_hi": 3.318
+    },
+    {
+     "value": 2.446,
+     "bar_lo": 2.376,
+     "bar_hi": 2.616
+    },
+    {
+     "value": 1.852,
+     "bar_lo": 1.682,
+     "bar_hi": 1.921
+    }
+   ],
+   "dop": [
+    {
+     "value": 2.901,
+     "bar_lo": 2.986,
+     "bar_hi": 3.079
+    },
+    {
+     "value": 2.454,
+     "bar_lo": 2.299,
+     "bar_hi": 2.492
+    },
+    {
+     "value": 1.867,
+     "bar_lo": 1.79,
+     "bar_hi": 1.867
+    }
+   ],
+   "nodop": [
+    {
+     "value": 2.925,
+     "bar_lo": 2.917,
+     "bar_hi": 3.071
+    },
+    {
+     "value": 2.153,
+     "bar_lo": 2.114,
+     "bar_hi": 2.346
+    },
+    {
+     "value": 1.728,
+     "bar_lo": 1.713,
+     "bar_hi": 1.836
+    }
+   ]
+  },
+  "coag_depth": {
+   "calibration_residual": 0.0,
+   "speeds_mm_s": [
+    1.0,
+    1.25,
+    1.5
+   ],
+   "exp": [
+    {
+     "value": 2.074,
+     "bar_lo": 1.883,
+     "bar_hi": 2.315
+    },
+    {
+     "value": 1.914,
+     "bar_lo": 1.784,
+     "bar_hi": 2.012
+    },
+    {
+     "value": 1.883,
+     "bar_lo": 1.685,
+     "bar_hi": 2.111
+    }
+   ],
+   "dop": [
+    {
+     "value": 1.981,
+     "bar_lo": 1.926,
+     "bar_hi": 2.068
+    },
+    {
+     "value": 1.71,
+     "bar_lo": 1.617,
+     "bar_hi": 1.778
+    },
+    {
+     "value": 1.512,
+     "bar_lo": 1.42,
+     "bar_hi": 1.525
+    }
+   ],
+   "nodop": [
+    {
+     "value": 2.457,
+     "bar_lo": 2.432,
+     "bar_hi": 2.611
+    },
+    {
+     "value": 2.043,
+     "bar_lo": 1.932,
+     "bar_hi": 2.043
+    },
+    {
+     "value": 1.543,
+     "bar_lo": 1.531,
+     "bar_hi": 1.673
+    }
+   ]
+  }
+ }
+}

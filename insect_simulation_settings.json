@@ -1,0 +1,2064 @@
+{
+  "metadata": {
+    "title": "Auditable Simulation Settings & Stratum Specifications for Invertebrate Laser Biophotonics",
+    "version": "3.0.0",
+    "last_updated": "2026-10-09",
+    "audit_standard": "ASD-STE100 Simplified Technical English & Empirical Tissue Optics Standard",
+    "governing_authorities": [
+      {
+        "citation": "Cuesta & Lobo (2019) Spectrophotometric measurements of beetle elytra. PeerJ 7:e8104",
+        "scope": "Macroscopic reflectance (R), transmittance (T), and absorbance (A) across 185-1400 nm in Onthophagus dung beetle elytra."
+      },
+      {
+        "citation": "Prahl (1999) Optical properties of hemoglobin. Oregon Medical Laser Center (OMLC)",
+        "scope": "Reference/calibration benchmark for comparative validation; strictly 0% in insect models per tracheal respiration biology."
+      },
+      {
+        "citation": "Jacques (2013) Optical properties of biological tissues: a review. Phys. Med. Biol. 58:R37",
+        "scope": "Melanin absorption power-law, cellular background baseline, Rayleigh-Mie dual scattering parameterisation."
+      }
+    ],
+    "global_simulation_invariants": {
+      "default_wavelength_nm": 450,
+      "default_optical_power_W": 25.0,
+      "default_pulse_duration_s": 0.2,
+      "default_spot_diameter_mm": 1.6,
+      "default_stochastic_photons": 50000,
+      "domain_bounds": {
+        "r_max_mm": 3.0,
+        "z_max_mm": 2.0,
+        "radial_rings_nr": 60,
+        "depth_voxels_nz": 60,
+        "dr_mm": 0.05,
+        "dz_mm": 0.0333
+      },
+      "biothermal_constants": {
+        "baseline_temp_C": 25.0,
+        "water_boiling_point_C": 100.0,
+        "sensible_heat_dT_to_boil_C": 75.0,
+        "water_latent_heat_vaporization_J_per_mm3": 2.26,
+        "ablation_ceiling_C": 1200.0,
+        "subelytral_air_gap_absorption_mu_a_mm1": 0.0,
+        "subelytral_air_gap_temperature_rise_dT_C": 0.0
+      }
+    }
+  },
+  "invertebrate_models": {
+    "beetle_elytron": {
+      "model_id": "beetle_elytron",
+      "common_name": "Adult Armored Beetle (Dorsal Elytron)",
+      "taxonomic_classification": "Coleoptera (e.g. Onthophagus, Tribolium, Leptinotarsa decemlineata)",
+      "anatomical_aspect": "Dorsal Elytral Armour over Subelytral Air Cavity into Visceral Mass",
+      "description": "Melanised sclerotised chitinous exocuticle acting as an optical shield, suspended over an insulating subelytral air cavity with a 0.25 mm diameter dorsal hemolymph vessel buried at exactly 1.0 mm depth.",
+      "empirical_grounding": "Stratum thicknesses and baseline reflectance/transmittance grounded by Cuesta & Lobo (2019) PeerJ 7:e8104 spectrophotometry of Onthophagus dung beetle elytra (82-100 \u00b5m total cuticle thickness). Hemolymph model grounded by insect physiological biochemistry (water 93%, protein 7%, 0% hemoglobin).",
+      "buried_blood_vessel": {
+        "present": true,
+        "vessel_name": "Dorsal Vessel (Aorta / Hemolymph Lumen)",
+        "diameter_mm": 0.25,
+        "depth_start_mm": 1.0,
+        "depth_end_mm": 1.25,
+        "hemoglobin_volume_fraction": 0.0,
+        "water_volume_fraction": 0.93,
+        "anisotropy_g": 0.98,
+        "volumetric_heat_capacity_J_per_mm3_K": 0.003688,
+        "protein_volume_fraction": 0.07,
+        "note": "Insects possess open circulation with aqueous hemolymph; zero hemoglobin."
+      },
+      "total_strata_count": 8,
+      "total_stack_thickness_um": 2000,
+      "total_stack_thickness_mm": 2.0,
+      "strata": [
+        {
+          "layer_index": 1,
+          "name": "epicuticle",
+          "label": "Wax Epicuticle",
+          "tag": "WAX",
+          "is_air": false,
+          "thickness_um": 5.0,
+          "thickness_mm": 0.005,
+          "z_start_mm": 0.0,
+          "z_end_mm": 0.005,
+          "composition_volume_fractions": {
+            "chitin": 0.95,
+            "water": 0.05
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 2.0,
+            "b_mie": 1.0,
+            "f_rayleigh": 0.2,
+            "g500": 0.85
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.002204,
+          "refractive_index_at_450nm": 1.544,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.2533,
+              "mu_s_mm1": 2.047,
+              "mu_s_prime_mm1": 0.29,
+              "g": 0.858,
+              "n": 1.544,
+              "penetration_depth_1_over_e_mm": 1.556
+            },
+            "450nm": {
+              "mu_a_mm1": 0.186,
+              "mu_s_mm1": 1.638,
+              "mu_s_prime_mm1": 0.239,
+              "g": 0.854,
+              "n": 1.544,
+              "penetration_depth_1_over_e_mm": 2.054
+            },
+            "532nm": {
+              "mu_a_mm1": 0.1146,
+              "mu_s_mm1": 1.132,
+              "mu_s_prime_mm1": 0.182,
+              "g": 0.84,
+              "n": 1.544,
+              "penetration_depth_1_over_e_mm": 3.134
+            },
+            "808nm": {
+              "mu_a_mm1": 0.0368,
+              "mu_s_mm1": 0.46,
+              "mu_s_prime_mm1": 0.105,
+              "g": 0.772,
+              "n": 1.544,
+              "penetration_depth_1_over_e_mm": 7.998
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.024,
+              "mu_s_mm1": 0.287,
+              "mu_s_prime_mm1": 0.077,
+              "g": 0.731,
+              "n": 1.543,
+              "penetration_depth_1_over_e_mm": 11.716
+            },
+            "10600nm": {
+              "mu_a_mm1": 26.8048,
+              "mu_s_mm1": 0.014,
+              "mu_s_prime_mm1": 0.008,
+              "g": 0.461,
+              "n": 1.543,
+              "penetration_depth_1_over_e_mm": 0.022
+            }
+          }
+        },
+        {
+          "layer_index": 2,
+          "name": "exocuticle",
+          "label": "Melanised Exocuticle",
+          "tag": "ARMORED",
+          "is_air": false,
+          "thickness_um": 40.0,
+          "thickness_mm": 0.04,
+          "z_start_mm": 0.005,
+          "z_end_mm": 0.045,
+          "composition_volume_fractions": {
+            "chitin": 0.775,
+            "melanin": 0.075,
+            "water": 0.15
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 6.0,
+            "b_mie": 1.2,
+            "f_rayleigh": 0.2,
+            "g500": 0.85
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.002435,
+          "refractive_index_at_450nm": 1.533,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 8.3907,
+              "mu_s_mm1": 6.319,
+              "mu_s_prime_mm1": 0.897,
+              "g": 0.858,
+              "n": 1.534,
+              "penetration_depth_1_over_e_mm": 0.065
+            },
+            "450nm": {
+              "mu_a_mm1": 5.8135,
+              "mu_s_mm1": 4.992,
+              "mu_s_prime_mm1": 0.728,
+              "g": 0.854,
+              "n": 1.533,
+              "penetration_depth_1_over_e_mm": 0.094
+            },
+            "532nm": {
+              "mu_a_mm1": 3.2465,
+              "mu_s_mm1": 3.36,
+              "mu_s_prime_mm1": 0.539,
+              "g": 0.84,
+              "n": 1.533,
+              "penetration_depth_1_over_e_mm": 0.165
+            },
+            "808nm": {
+              "mu_a_mm1": 0.7616,
+              "mu_s_mm1": 1.262,
+              "mu_s_prime_mm1": 0.287,
+              "g": 0.772,
+              "n": 1.532,
+              "penetration_depth_1_over_e_mm": 0.646
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.3007,
+              "mu_s_mm1": 0.742,
+              "mu_s_prime_mm1": 0.2,
+              "g": 0.731,
+              "n": 1.531,
+              "penetration_depth_1_over_e_mm": 1.488
+            },
+            "10600nm": {
+              "mu_a_mm1": 30.604,
+              "mu_s_mm1": 0.023,
+              "mu_s_prime_mm1": 0.012,
+              "g": 0.461,
+              "n": 1.53,
+              "penetration_depth_1_over_e_mm": 0.019
+            }
+          }
+        },
+        {
+          "layer_index": 3,
+          "name": "endocuticle",
+          "label": "Fibrous Endocuticle",
+          "tag": "CHITIN",
+          "is_air": false,
+          "thickness_um": 55.0,
+          "thickness_mm": 0.055,
+          "z_start_mm": 0.045,
+          "z_end_mm": 0.1,
+          "composition_volume_fractions": {
+            "chitin": 0.82,
+            "melanin": 0.01,
+            "water": 0.17
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 8.0,
+            "b_mie": 1.1,
+            "f_rayleigh": 0.2,
+            "g500": 0.9
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.002457,
+          "refractive_index_at_450nm": 1.52,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 1.3378,
+              "mu_s_mm1": 12.888,
+              "mu_s_prime_mm1": 1.179,
+              "g": 0.909,
+              "n": 1.52,
+              "penetration_depth_1_over_e_mm": 0.315
+            },
+            "450nm": {
+              "mu_a_mm1": 0.9358,
+              "mu_s_mm1": 10.079,
+              "mu_s_prime_mm1": 0.963,
+              "g": 0.904,
+              "n": 1.52,
+              "penetration_depth_1_over_e_mm": 0.433
+            },
+            "532nm": {
+              "mu_a_mm1": 0.5317,
+              "mu_s_mm1": 6.504,
+              "mu_s_prime_mm1": 0.723,
+              "g": 0.889,
+              "n": 1.519,
+              "penetration_depth_1_over_e_mm": 0.707
+            },
+            "808nm": {
+              "mu_a_mm1": 0.1331,
+              "mu_s_mm1": 2.198,
+              "mu_s_prime_mm1": 0.401,
+              "g": 0.818,
+              "n": 1.518,
+              "penetration_depth_1_over_e_mm": 2.166
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0615,
+              "mu_s_mm1": 1.268,
+              "mu_s_prime_mm1": 0.287,
+              "g": 0.774,
+              "n": 1.517,
+              "penetration_depth_1_over_e_mm": 3.947
+            },
+            "10600nm": {
+              "mu_a_mm1": 33.2841,
+              "mu_s_mm1": 0.043,
+              "mu_s_prime_mm1": 0.022,
+              "g": 0.489,
+              "n": 1.516,
+              "penetration_depth_1_over_e_mm": 0.017
+            }
+          }
+        },
+        {
+          "layer_index": 4,
+          "name": "subelytral_cavity",
+          "label": "Subelytral Air Cavity",
+          "tag": "AIR GAP",
+          "is_air": true,
+          "thickness_um": 150.0,
+          "thickness_mm": 0.15,
+          "z_start_mm": 0.1,
+          "z_end_mm": 0.25,
+          "composition_volume_fractions": {
+            "air": 1.0
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 0.0,
+            "b_mie": 0.0,
+            "f_rayleigh": 0.0,
+            "g500": 0.0
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 1e-06,
+          "refractive_index_at_450nm": 1.0,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.0,
+              "mu_s_mm1": 0.0,
+              "mu_s_prime_mm1": 0.0,
+              "g": 0.0,
+              "n": 1.0,
+              "penetration_depth_1_over_e_mm": 999.0
+            },
+            "450nm": {
+              "mu_a_mm1": 0.0,
+              "mu_s_mm1": 0.0,
+              "mu_s_prime_mm1": 0.0,
+              "g": 0.0,
+              "n": 1.0,
+              "penetration_depth_1_over_e_mm": 999.0
+            },
+            "532nm": {
+              "mu_a_mm1": 0.0,
+              "mu_s_mm1": 0.0,
+              "mu_s_prime_mm1": 0.0,
+              "g": 0.0,
+              "n": 1.0,
+              "penetration_depth_1_over_e_mm": 999.0
+            },
+            "808nm": {
+              "mu_a_mm1": 0.0,
+              "mu_s_mm1": 0.0,
+              "mu_s_prime_mm1": 0.0,
+              "g": 0.0,
+              "n": 1.0,
+              "penetration_depth_1_over_e_mm": 999.0
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0,
+              "mu_s_mm1": 0.0,
+              "mu_s_prime_mm1": 0.0,
+              "g": 0.0,
+              "n": 1.0,
+              "penetration_depth_1_over_e_mm": 999.0
+            },
+            "10600nm": {
+              "mu_a_mm1": 0.0,
+              "mu_s_mm1": 0.0,
+              "mu_s_prime_mm1": 0.0,
+              "g": 0.0,
+              "n": 1.0,
+              "penetration_depth_1_over_e_mm": 999.0
+            }
+          }
+        },
+        {
+          "layer_index": 5,
+          "name": "abdominal_tergite",
+          "label": "Abdominal Tergite Cuticle",
+          "tag": "TERGITE",
+          "is_air": false,
+          "thickness_um": 20.0,
+          "thickness_mm": 0.02,
+          "z_start_mm": 0.25,
+          "z_end_mm": 0.27,
+          "composition_volume_fractions": {
+            "chitin": 0.72,
+            "melanin": 0.03,
+            "water": 0.25
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 5.0,
+            "b_mie": 1.1,
+            "f_rayleigh": 0.2,
+            "g500": 0.88
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.00263,
+          "refractive_index_at_450nm": 1.505,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 3.5075,
+              "mu_s_mm1": 6.598,
+              "mu_s_prime_mm1": 0.737,
+              "g": 0.888,
+              "n": 1.506,
+              "penetration_depth_1_over_e_mm": 0.15
+            },
+            "450nm": {
+              "mu_a_mm1": 2.4362,
+              "mu_s_mm1": 5.204,
+              "mu_s_prime_mm1": 0.602,
+              "g": 0.884,
+              "n": 1.505,
+              "penetration_depth_1_over_e_mm": 0.212
+            },
+            "532nm": {
+              "mu_a_mm1": 1.3666,
+              "mu_s_mm1": 3.452,
+              "mu_s_prime_mm1": 0.452,
+              "g": 0.869,
+              "n": 1.504,
+              "penetration_depth_1_over_e_mm": 0.366
+            },
+            "808nm": {
+              "mu_a_mm1": 0.3261,
+              "mu_s_mm1": 1.25,
+              "mu_s_prime_mm1": 0.251,
+              "g": 0.799,
+              "n": 1.503,
+              "penetration_depth_1_over_e_mm": 1.331
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.1355,
+              "mu_s_mm1": 0.736,
+              "mu_s_prime_mm1": 0.179,
+              "g": 0.757,
+              "n": 1.502,
+              "penetration_depth_1_over_e_mm": 2.796
+            },
+            "10600nm": {
+              "mu_a_mm1": 37.2836,
+              "mu_s_mm1": 0.027,
+              "mu_s_prime_mm1": 0.014,
+              "g": 0.478,
+              "n": 1.499,
+              "penetration_depth_1_over_e_mm": 0.015
+            }
+          }
+        },
+        {
+          "layer_index": 6,
+          "name": "visceral_parenchyma",
+          "label": "Visceral Parenchyma",
+          "tag": "VISCERA",
+          "is_air": false,
+          "thickness_um": 730.0,
+          "thickness_mm": 0.73,
+          "z_start_mm": 0.27,
+          "z_end_mm": 1.0,
+          "composition_volume_fractions": {
+            "water": 0.78,
+            "chitin": 0.22
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 12.0,
+            "b_mie": 1.1,
+            "f_rayleigh": 0.2,
+            "g500": 0.92
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003726,
+          "refractive_index_at_450nm": 1.386,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.2497,
+              "mu_s_mm1": 24.81,
+              "mu_s_prime_mm1": 1.768,
+              "g": 0.929,
+              "n": 1.389,
+              "penetration_depth_1_over_e_mm": 0.813
+            },
+            "450nm": {
+              "mu_a_mm1": 0.1824,
+              "mu_s_mm1": 19.148,
+              "mu_s_prime_mm1": 1.444,
+              "g": 0.925,
+              "n": 1.386,
+              "penetration_depth_1_over_e_mm": 1.06
+            },
+            "532nm": {
+              "mu_a_mm1": 0.1112,
+              "mu_s_mm1": 11.867,
+              "mu_s_prime_mm1": 1.084,
+              "g": 0.909,
+              "n": 1.383,
+              "penetration_depth_1_over_e_mm": 1.584
+            },
+            "808nm": {
+              "mu_a_mm1": 0.0342,
+              "mu_s_mm1": 3.663,
+              "mu_s_prime_mm1": 0.601,
+              "g": 0.836,
+              "n": 1.378,
+              "penetration_depth_1_over_e_mm": 3.913
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0278,
+              "mu_s_mm1": 2.058,
+              "mu_s_prime_mm1": 0.43,
+              "g": 0.791,
+              "n": 1.375,
+              "penetration_depth_1_over_e_mm": 5.116
+            },
+            "10600nm": {
+              "mu_a_mm1": 67.6811,
+              "mu_s_mm1": 0.067,
+              "mu_s_prime_mm1": 0.033,
+              "g": 0.499,
+              "n": 1.367,
+              "penetration_depth_1_over_e_mm": 0.009
+            }
+          }
+        },
+        {
+          "layer_index": 7,
+          "name": "dorsal_vessel",
+          "label": "Dorsal Vessel (Aqueous Hemolymph Sinus)",
+          "tag": "VESSEL",
+          "is_air": false,
+          "thickness_um": 250.0,
+          "thickness_mm": 0.25,
+          "z_start_mm": 1.0,
+          "z_end_mm": 1.25,
+          "composition_volume_fractions": {
+            "water": 0.93,
+            "protein": 0.07
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 15.0,
+            "b_mie": 1.0,
+            "f_rayleigh": 0.0,
+            "g500": 0.98
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003688,
+          "refractive_index_at_450nm": 1.391,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 151.1175,
+              "mu_s_mm1": 173.232,
+              "mu_s_prime_mm1": 1.852,
+              "g": 0.989,
+              "n": 1.391,
+              "penetration_depth_1_over_e_mm": 0.004
+            },
+            "450nm": {
+              "mu_a_mm1": 28.7727,
+              "mu_s_mm1": 110.375,
+              "mu_s_prime_mm1": 1.667,
+              "g": 0.985,
+              "n": 1.391,
+              "penetration_depth_1_over_e_mm": 0.02
+            },
+            "532nm": {
+              "mu_a_mm1": 20.0804,
+              "mu_s_mm1": 43.94,
+              "mu_s_prime_mm1": 1.41,
+              "g": 0.968,
+              "n": 1.39,
+              "penetration_depth_1_over_e_mm": 0.028
+            },
+            "808nm": {
+              "mu_a_mm1": 0.4212,
+              "mu_s_mm1": 8.462,
+              "mu_s_prime_mm1": 0.928,
+              "g": 0.89,
+              "n": 1.389,
+              "penetration_depth_1_over_e_mm": 0.766
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.4821,
+              "mu_s_mm1": 4.479,
+              "mu_s_prime_mm1": 0.705,
+              "g": 0.843,
+              "n": 1.389,
+              "penetration_depth_1_over_e_mm": 0.763
+            },
+            "10600nm": {
+              "mu_a_mm1": 12.4661,
+              "mu_s_mm1": 0.151,
+              "mu_s_prime_mm1": 0.071,
+              "g": 0.532,
+              "n": 1.387,
+              "penetration_depth_1_over_e_mm": 0.046
+            }
+          }
+        },
+        {
+          "layer_index": 8,
+          "name": "deep_ventral_viscera",
+          "label": "Deep Ventral Viscera & Muscle",
+          "tag": "VISCERA",
+          "is_air": false,
+          "thickness_um": 750.0,
+          "thickness_mm": 0.75,
+          "z_start_mm": 1.25,
+          "z_end_mm": 2.0,
+          "composition_volume_fractions": {
+            "water": 0.76,
+            "chitin": 0.24
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 12.0,
+            "b_mie": 1.1,
+            "f_rayleigh": 0.2,
+            "g500": 0.92
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003684,
+          "refractive_index_at_450nm": 1.391,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.2498,
+              "mu_s_mm1": 24.81,
+              "mu_s_prime_mm1": 1.768,
+              "g": 0.929,
+              "n": 1.393,
+              "penetration_depth_1_over_e_mm": 0.813
+            },
+            "450nm": {
+              "mu_a_mm1": 0.1825,
+              "mu_s_mm1": 19.148,
+              "mu_s_prime_mm1": 1.444,
+              "g": 0.925,
+              "n": 1.391,
+              "penetration_depth_1_over_e_mm": 1.06
+            },
+            "532nm": {
+              "mu_a_mm1": 0.1113,
+              "mu_s_mm1": 11.867,
+              "mu_s_prime_mm1": 1.084,
+              "g": 0.909,
+              "n": 1.387,
+              "penetration_depth_1_over_e_mm": 1.583
+            },
+            "808nm": {
+              "mu_a_mm1": 0.0343,
+              "mu_s_mm1": 3.663,
+              "mu_s_prime_mm1": 0.601,
+              "g": 0.836,
+              "n": 1.382,
+              "penetration_depth_1_over_e_mm": 3.909
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0277,
+              "mu_s_mm1": 2.058,
+              "mu_s_prime_mm1": 0.43,
+              "g": 0.791,
+              "n": 1.38,
+              "penetration_depth_1_over_e_mm": 5.127
+            },
+            "10600nm": {
+              "mu_a_mm1": 66.5612,
+              "mu_s_mm1": 0.067,
+              "mu_s_prime_mm1": 0.033,
+              "g": 0.499,
+              "n": 1.372,
+              "penetration_depth_1_over_e_mm": 0.009
+            }
+          }
+        }
+      ]
+    },
+    "beetle_ventral": {
+      "model_id": "beetle_ventral",
+      "common_name": "Adult Beetle (Ventral / Intersegmental Aspect)",
+      "taxonomic_classification": "Coleoptera",
+      "anatomical_aspect": "Ventral Thoracic / Abdominal Intersegmental Membrane into Muscle",
+      "description": "Thin unarmored cuticle without an insulating subelytral air gap, with direct optical and thermal coupling into the ventral visceral mass and a 0.25 mm blood vessel at 1.0 mm depth.",
+      "empirical_grounding": "Grounded by comparative cuticle thinning in ventral beetle somites and soft intersegmental membranes.",
+      "buried_blood_vessel": {
+        "present": true,
+        "vessel_name": "Ventral Hemolymph Sinus",
+        "diameter_mm": 0.25,
+        "depth_start_mm": 1.0,
+        "depth_end_mm": 1.25,
+        "hemoglobin_volume_fraction": 0.0,
+        "water_volume_fraction": 0.93,
+        "anisotropy_g": 0.98,
+        "volumetric_heat_capacity_J_per_mm3_K": 0.003688,
+        "protein_volume_fraction": 0.07,
+        "note": "Insects possess open circulation with aqueous hemolymph; zero hemoglobin."
+      },
+      "total_strata_count": 5,
+      "total_stack_thickness_um": 2000,
+      "total_stack_thickness_mm": 2.0,
+      "strata": [
+        {
+          "layer_index": 1,
+          "name": "ventral_cuticle",
+          "label": "Thin Ventral Cuticle",
+          "tag": "CUTICLE",
+          "is_air": false,
+          "thickness_um": 30.0,
+          "thickness_mm": 0.03,
+          "z_start_mm": 0.0,
+          "z_end_mm": 0.03,
+          "composition_volume_fractions": {
+            "chitin": 0.7,
+            "melanin": 0.04,
+            "water": 0.26
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 5.0,
+            "b_mie": 1.1,
+            "f_rayleigh": 0.2,
+            "g500": 0.88
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.002654,
+          "refractive_index_at_450nm": 1.505,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 4.5925,
+              "mu_s_mm1": 6.598,
+              "mu_s_prime_mm1": 0.737,
+              "g": 0.888,
+              "n": 1.505,
+              "penetration_depth_1_over_e_mm": 0.117
+            },
+            "450nm": {
+              "mu_a_mm1": 3.1865,
+              "mu_s_mm1": 5.204,
+              "mu_s_prime_mm1": 0.602,
+              "g": 0.884,
+              "n": 1.505,
+              "penetration_depth_1_over_e_mm": 0.166
+            },
+            "532nm": {
+              "mu_a_mm1": 1.7842,
+              "mu_s_mm1": 3.452,
+              "mu_s_prime_mm1": 0.452,
+              "g": 0.869,
+              "n": 1.503,
+              "penetration_depth_1_over_e_mm": 0.289
+            },
+            "808nm": {
+              "mu_a_mm1": 0.4228,
+              "mu_s_mm1": 1.25,
+              "mu_s_prime_mm1": 0.251,
+              "g": 0.799,
+              "n": 1.502,
+              "penetration_depth_1_over_e_mm": 1.082
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.1724,
+              "mu_s_mm1": 0.736,
+              "mu_s_prime_mm1": 0.179,
+              "g": 0.757,
+              "n": 1.501,
+              "penetration_depth_1_over_e_mm": 2.345
+            },
+            "10600nm": {
+              "mu_a_mm1": 37.6036,
+              "mu_s_mm1": 0.027,
+              "mu_s_prime_mm1": 0.014,
+              "g": 0.478,
+              "n": 1.498,
+              "penetration_depth_1_over_e_mm": 0.015
+            }
+          }
+        },
+        {
+          "layer_index": 2,
+          "name": "subdermal_fat_body",
+          "label": "Subdermal Fat Body",
+          "tag": "FAT BODY",
+          "is_air": false,
+          "thickness_um": 100.0,
+          "thickness_mm": 0.1,
+          "z_start_mm": 0.03,
+          "z_end_mm": 0.13,
+          "composition_volume_fractions": {
+            "chitin": 0.6,
+            "water": 0.4
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 14.0,
+            "b_mie": 1.0,
+            "f_rayleigh": 0.2,
+            "g500": 0.9
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.002934,
+          "refractive_index_at_450nm": 1.468,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.2516,
+              "mu_s_mm1": 22.233,
+              "mu_s_prime_mm1": 2.033,
+              "g": 0.909,
+              "n": 1.47,
+              "penetration_depth_1_over_e_mm": 0.761
+            },
+            "450nm": {
+              "mu_a_mm1": 0.1843,
+              "mu_s_mm1": 17.5,
+              "mu_s_prime_mm1": 1.671,
+              "g": 0.904,
+              "n": 1.468,
+              "penetration_depth_1_over_e_mm": 0.987
+            },
+            "532nm": {
+              "mu_a_mm1": 0.113,
+              "mu_s_mm1": 11.441,
+              "mu_s_prime_mm1": 1.271,
+              "g": 0.889,
+              "n": 1.467,
+              "penetration_depth_1_over_e_mm": 1.46
+            },
+            "808nm": {
+              "mu_a_mm1": 0.0356,
+              "mu_s_mm1": 4.025,
+              "mu_s_prime_mm1": 0.734,
+              "g": 0.818,
+              "n": 1.464,
+              "penetration_depth_1_over_e_mm": 3.49
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0258,
+              "mu_s_mm1": 2.388,
+              "mu_s_prime_mm1": 0.54,
+              "g": 0.774,
+              "n": 1.463,
+              "penetration_depth_1_over_e_mm": 4.776
+            },
+            "10600nm": {
+              "mu_a_mm1": 46.403,
+              "mu_s_mm1": 0.103,
+              "mu_s_prime_mm1": 0.053,
+              "g": 0.489,
+              "n": 1.459,
+              "penetration_depth_1_over_e_mm": 0.012
+            }
+          }
+        },
+        {
+          "layer_index": 3,
+          "name": "ventral_nerve_cord",
+          "label": "Ventral Nerve Cord & Parenchyma",
+          "tag": "VISCERA",
+          "is_air": false,
+          "thickness_um": 870.0,
+          "thickness_mm": 0.87,
+          "z_start_mm": 0.13,
+          "z_end_mm": 1.0,
+          "composition_volume_fractions": {
+            "water": 0.75,
+            "chitin": 0.25
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 12.0,
+            "b_mie": 1.1,
+            "f_rayleigh": 0.2,
+            "g500": 0.92
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003663,
+          "refractive_index_at_450nm": 1.393,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.2499,
+              "mu_s_mm1": 24.81,
+              "mu_s_prime_mm1": 1.768,
+              "g": 0.929,
+              "n": 1.395,
+              "penetration_depth_1_over_e_mm": 0.813
+            },
+            "450nm": {
+              "mu_a_mm1": 0.1825,
+              "mu_s_mm1": 19.148,
+              "mu_s_prime_mm1": 1.444,
+              "g": 0.925,
+              "n": 1.393,
+              "penetration_depth_1_over_e_mm": 1.06
+            },
+            "532nm": {
+              "mu_a_mm1": 0.1113,
+              "mu_s_mm1": 11.867,
+              "mu_s_prime_mm1": 1.084,
+              "g": 0.909,
+              "n": 1.39,
+              "penetration_depth_1_over_e_mm": 1.583
+            },
+            "808nm": {
+              "mu_a_mm1": 0.0343,
+              "mu_s_mm1": 3.663,
+              "mu_s_prime_mm1": 0.601,
+              "g": 0.836,
+              "n": 1.385,
+              "penetration_depth_1_over_e_mm": 3.907
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0277,
+              "mu_s_mm1": 2.058,
+              "mu_s_prime_mm1": 0.43,
+              "g": 0.791,
+              "n": 1.382,
+              "penetration_depth_1_over_e_mm": 5.132
+            },
+            "10600nm": {
+              "mu_a_mm1": 66.0013,
+              "mu_s_mm1": 0.067,
+              "mu_s_prime_mm1": 0.033,
+              "g": 0.499,
+              "n": 1.374,
+              "penetration_depth_1_over_e_mm": 0.009
+            }
+          }
+        },
+        {
+          "layer_index": 4,
+          "name": "ventral_vessel",
+          "label": "Ventral Hemolymph Sinus",
+          "tag": "VESSEL",
+          "is_air": false,
+          "thickness_um": 250.0,
+          "thickness_mm": 0.25,
+          "z_start_mm": 1.0,
+          "z_end_mm": 1.25,
+          "composition_volume_fractions": {
+            "water": 0.93,
+            "protein": 0.07
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 15.0,
+            "b_mie": 1.0,
+            "f_rayleigh": 0.0,
+            "g500": 0.98
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003688,
+          "refractive_index_at_450nm": 1.391,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 151.1175,
+              "mu_s_mm1": 173.232,
+              "mu_s_prime_mm1": 1.852,
+              "g": 0.989,
+              "n": 1.391,
+              "penetration_depth_1_over_e_mm": 0.004
+            },
+            "450nm": {
+              "mu_a_mm1": 28.7727,
+              "mu_s_mm1": 110.375,
+              "mu_s_prime_mm1": 1.667,
+              "g": 0.985,
+              "n": 1.391,
+              "penetration_depth_1_over_e_mm": 0.02
+            },
+            "532nm": {
+              "mu_a_mm1": 20.0804,
+              "mu_s_mm1": 43.94,
+              "mu_s_prime_mm1": 1.41,
+              "g": 0.968,
+              "n": 1.39,
+              "penetration_depth_1_over_e_mm": 0.028
+            },
+            "808nm": {
+              "mu_a_mm1": 0.4212,
+              "mu_s_mm1": 8.462,
+              "mu_s_prime_mm1": 0.928,
+              "g": 0.89,
+              "n": 1.389,
+              "penetration_depth_1_over_e_mm": 0.766
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.4821,
+              "mu_s_mm1": 4.479,
+              "mu_s_prime_mm1": 0.705,
+              "g": 0.843,
+              "n": 1.389,
+              "penetration_depth_1_over_e_mm": 0.763
+            },
+            "10600nm": {
+              "mu_a_mm1": 12.4661,
+              "mu_s_mm1": 0.151,
+              "mu_s_prime_mm1": 0.071,
+              "g": 0.532,
+              "n": 1.387,
+              "penetration_depth_1_over_e_mm": 0.046
+            }
+          }
+        },
+        {
+          "layer_index": 5,
+          "name": "deep_muscle",
+          "label": "Deep Locomotor Muscle",
+          "tag": "VISCERA",
+          "is_air": false,
+          "thickness_um": 750.0,
+          "thickness_mm": 0.75,
+          "z_start_mm": 1.25,
+          "z_end_mm": 2.0,
+          "composition_volume_fractions": {
+            "water": 0.76,
+            "chitin": 0.24
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 12.0,
+            "b_mie": 1.1,
+            "f_rayleigh": 0.2,
+            "g500": 0.92
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003684,
+          "refractive_index_at_450nm": 1.391,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.2498,
+              "mu_s_mm1": 24.81,
+              "mu_s_prime_mm1": 1.768,
+              "g": 0.929,
+              "n": 1.393,
+              "penetration_depth_1_over_e_mm": 0.813
+            },
+            "450nm": {
+              "mu_a_mm1": 0.1825,
+              "mu_s_mm1": 19.148,
+              "mu_s_prime_mm1": 1.444,
+              "g": 0.925,
+              "n": 1.391,
+              "penetration_depth_1_over_e_mm": 1.06
+            },
+            "532nm": {
+              "mu_a_mm1": 0.1113,
+              "mu_s_mm1": 11.867,
+              "mu_s_prime_mm1": 1.084,
+              "g": 0.909,
+              "n": 1.387,
+              "penetration_depth_1_over_e_mm": 1.583
+            },
+            "808nm": {
+              "mu_a_mm1": 0.0343,
+              "mu_s_mm1": 3.663,
+              "mu_s_prime_mm1": 0.601,
+              "g": 0.836,
+              "n": 1.382,
+              "penetration_depth_1_over_e_mm": 3.909
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0277,
+              "mu_s_mm1": 2.058,
+              "mu_s_prime_mm1": 0.43,
+              "g": 0.791,
+              "n": 1.38,
+              "penetration_depth_1_over_e_mm": 5.127
+            },
+            "10600nm": {
+              "mu_a_mm1": 66.5612,
+              "mu_s_mm1": 0.067,
+              "mu_s_prime_mm1": 0.033,
+              "g": 0.499,
+              "n": 1.372,
+              "penetration_depth_1_over_e_mm": 0.009
+            }
+          }
+        }
+      ]
+    },
+    "larva": {
+      "model_id": "larva",
+      "common_name": "Herbivorous Crop Larva / Caterpillar",
+      "taxonomic_classification": "Lepidoptera / Coleoptera larvae (e.g. Spodoptera frugiperda, Helicoverpa zea)",
+      "anatomical_aspect": "Dorsal Translucent Body Wall into Gut Lumen",
+      "description": "Soft unsclerotised body wall (85% water) with foliar gut contents (chlorophyll-a/b) and a 0.25 mm dorsal blood vessel at 1.0 mm depth.",
+      "empirical_grounding": "Grounded by plant chlorophyll pigment absorption spectra (Soret peak 430 nm, Q-band 665 nm) and larval body wall spectrophotometry.",
+      "buried_blood_vessel": {
+        "present": true,
+        "vessel_name": "Dorsal Pumping Vessel (Heart Lumen)",
+        "diameter_mm": 0.25,
+        "depth_start_mm": 1.0,
+        "depth_end_mm": 1.25,
+        "hemoglobin_volume_fraction": 0.0,
+        "water_volume_fraction": 0.93,
+        "anisotropy_g": 0.98,
+        "volumetric_heat_capacity_J_per_mm3_K": 0.003688,
+        "protein_volume_fraction": 0.07,
+        "note": "Insects possess open circulation with aqueous hemolymph; zero hemoglobin."
+      },
+      "total_strata_count": 5,
+      "total_stack_thickness_um": 2000,
+      "total_stack_thickness_mm": 2.0,
+      "strata": [
+        {
+          "layer_index": 1,
+          "name": "integument",
+          "label": "Translucent Integument",
+          "tag": "INTEGUMENT",
+          "is_air": false,
+          "thickness_um": 30.0,
+          "thickness_mm": 0.03,
+          "z_start_mm": 0.0,
+          "z_end_mm": 0.03,
+          "composition_volume_fractions": {
+            "water": 0.85,
+            "chitin": 0.15
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 8.0,
+            "b_mie": 1.2,
+            "f_rayleigh": 0.2,
+            "g500": 0.88
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003871,
+          "refractive_index_at_450nm": 1.371,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.2494,
+              "mu_s_mm1": 10.711,
+              "mu_s_prime_mm1": 1.196,
+              "g": 0.888,
+              "n": 1.374,
+              "penetration_depth_1_over_e_mm": 0.962
+            },
+            "450nm": {
+              "mu_a_mm1": 0.182,
+              "mu_s_mm1": 8.392,
+              "mu_s_prime_mm1": 0.97,
+              "g": 0.884,
+              "n": 1.371,
+              "penetration_depth_1_over_e_mm": 1.261
+            },
+            "532nm": {
+              "mu_a_mm1": 0.1109,
+              "mu_s_mm1": 5.494,
+              "mu_s_prime_mm1": 0.719,
+              "g": 0.869,
+              "n": 1.368,
+              "penetration_depth_1_over_e_mm": 1.903
+            },
+            "808nm": {
+              "mu_a_mm1": 0.034,
+              "mu_s_mm1": 1.911,
+              "mu_s_prime_mm1": 0.383,
+              "g": 0.799,
+              "n": 1.362,
+              "penetration_depth_1_over_e_mm": 4.847
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0282,
+              "mu_s_mm1": 1.095,
+              "mu_s_prime_mm1": 0.266,
+              "g": 0.757,
+              "n": 1.359,
+              "penetration_depth_1_over_e_mm": 6.337
+            },
+            "10600nm": {
+              "mu_a_mm1": 71.6008,
+              "mu_s_mm1": 0.031,
+              "mu_s_prime_mm1": 0.016,
+              "g": 0.478,
+              "n": 1.35,
+              "penetration_depth_1_over_e_mm": 0.008
+            }
+          }
+        },
+        {
+          "layer_index": 2,
+          "name": "hemolymph_fat",
+          "label": "Subdermal Hemolymph & Fat Body",
+          "tag": "HEMOLYMPH",
+          "is_air": false,
+          "thickness_um": 150.0,
+          "thickness_mm": 0.15,
+          "z_start_mm": 0.03,
+          "z_end_mm": 0.18,
+          "composition_volume_fractions": {
+            "water": 0.88,
+            "chitin": 0.12
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 10.0,
+            "b_mie": 1.0,
+            "f_rayleigh": 0.2,
+            "g500": 0.9
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003934,
+          "refractive_index_at_450nm": 1.365,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.2492,
+              "mu_s_mm1": 15.88,
+              "mu_s_prime_mm1": 1.452,
+              "g": 0.909,
+              "n": 1.368,
+              "penetration_depth_1_over_e_mm": 0.887
+            },
+            "450nm": {
+              "mu_a_mm1": 0.1819,
+              "mu_s_mm1": 12.5,
+              "mu_s_prime_mm1": 1.194,
+              "g": 0.904,
+              "n": 1.365,
+              "penetration_depth_1_over_e_mm": 1.154
+            },
+            "532nm": {
+              "mu_a_mm1": 0.1107,
+              "mu_s_mm1": 8.172,
+              "mu_s_prime_mm1": 0.908,
+              "g": 0.889,
+              "n": 1.361,
+              "penetration_depth_1_over_e_mm": 1.719
+            },
+            "808nm": {
+              "mu_a_mm1": 0.0339,
+              "mu_s_mm1": 2.875,
+              "mu_s_prime_mm1": 0.524,
+              "g": 0.818,
+              "n": 1.355,
+              "penetration_depth_1_over_e_mm": 4.197
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0283,
+              "mu_s_mm1": 1.705,
+              "mu_s_prime_mm1": 0.386,
+              "g": 0.774,
+              "n": 1.352,
+              "penetration_depth_1_over_e_mm": 5.331
+            },
+            "10600nm": {
+              "mu_a_mm1": 73.2806,
+              "mu_s_mm1": 0.074,
+              "mu_s_prime_mm1": 0.038,
+              "g": 0.489,
+              "n": 1.343,
+              "penetration_depth_1_over_e_mm": 0.008
+            }
+          }
+        },
+        {
+          "layer_index": 3,
+          "name": "gut_wall_parenchyma",
+          "label": "Midgut Wall & Parenchyma",
+          "tag": "EPITHELIUM",
+          "is_air": false,
+          "thickness_um": 820.0,
+          "thickness_mm": 0.82,
+          "z_start_mm": 0.18,
+          "z_end_mm": 1.0,
+          "composition_volume_fractions": {
+            "water": 0.82,
+            "chitin": 0.18
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 8.0,
+            "b_mie": 1.1,
+            "f_rayleigh": 0.2,
+            "g500": 0.9
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003809,
+          "refractive_index_at_450nm": 1.378,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.2495,
+              "mu_s_mm1": 12.888,
+              "mu_s_prime_mm1": 1.179,
+              "g": 0.909,
+              "n": 1.381,
+              "penetration_depth_1_over_e_mm": 0.967
+            },
+            "450nm": {
+              "mu_a_mm1": 0.1822,
+              "mu_s_mm1": 10.079,
+              "mu_s_prime_mm1": 0.963,
+              "g": 0.904,
+              "n": 1.378,
+              "penetration_depth_1_over_e_mm": 1.264
+            },
+            "532nm": {
+              "mu_a_mm1": 0.111,
+              "mu_s_mm1": 6.504,
+              "mu_s_prime_mm1": 0.723,
+              "g": 0.889,
+              "n": 1.374,
+              "penetration_depth_1_over_e_mm": 1.898
+            },
+            "808nm": {
+              "mu_a_mm1": 0.0341,
+              "mu_s_mm1": 2.198,
+              "mu_s_prime_mm1": 0.401,
+              "g": 0.818,
+              "n": 1.369,
+              "penetration_depth_1_over_e_mm": 4.74
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.028,
+              "mu_s_mm1": 1.268,
+              "mu_s_prime_mm1": 0.287,
+              "g": 0.774,
+              "n": 1.366,
+              "penetration_depth_1_over_e_mm": 6.148
+            },
+            "10600nm": {
+              "mu_a_mm1": 69.9209,
+              "mu_s_mm1": 0.043,
+              "mu_s_prime_mm1": 0.022,
+              "g": 0.489,
+              "n": 1.358,
+              "penetration_depth_1_over_e_mm": 0.008
+            }
+          }
+        },
+        {
+          "layer_index": 4,
+          "name": "dorsal_vessel",
+          "label": "Dorsal Pumping Vessel (Aqueous Hemolymph)",
+          "tag": "VESSEL",
+          "is_air": false,
+          "thickness_um": 250.0,
+          "thickness_mm": 0.25,
+          "z_start_mm": 1.0,
+          "z_end_mm": 1.25,
+          "composition_volume_fractions": {
+            "water": 0.93,
+            "protein": 0.07
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 15.0,
+            "b_mie": 1.0,
+            "f_rayleigh": 0.0,
+            "g500": 0.98
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003688,
+          "refractive_index_at_450nm": 1.391,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 151.1175,
+              "mu_s_mm1": 173.232,
+              "mu_s_prime_mm1": 1.852,
+              "g": 0.989,
+              "n": 1.391,
+              "penetration_depth_1_over_e_mm": 0.004
+            },
+            "450nm": {
+              "mu_a_mm1": 28.7727,
+              "mu_s_mm1": 110.375,
+              "mu_s_prime_mm1": 1.667,
+              "g": 0.985,
+              "n": 1.391,
+              "penetration_depth_1_over_e_mm": 0.02
+            },
+            "532nm": {
+              "mu_a_mm1": 20.0804,
+              "mu_s_mm1": 43.94,
+              "mu_s_prime_mm1": 1.41,
+              "g": 0.968,
+              "n": 1.39,
+              "penetration_depth_1_over_e_mm": 0.028
+            },
+            "808nm": {
+              "mu_a_mm1": 0.4212,
+              "mu_s_mm1": 8.462,
+              "mu_s_prime_mm1": 0.928,
+              "g": 0.89,
+              "n": 1.389,
+              "penetration_depth_1_over_e_mm": 0.766
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.4821,
+              "mu_s_mm1": 4.479,
+              "mu_s_prime_mm1": 0.705,
+              "g": 0.843,
+              "n": 1.389,
+              "penetration_depth_1_over_e_mm": 0.763
+            },
+            "10600nm": {
+              "mu_a_mm1": 12.4661,
+              "mu_s_mm1": 0.151,
+              "mu_s_prime_mm1": 0.071,
+              "g": 0.532,
+              "n": 1.387,
+              "penetration_depth_1_over_e_mm": 0.046
+            }
+          }
+        },
+        {
+          "layer_index": 5,
+          "name": "deep_ventral_viscera",
+          "label": "Deep Ventral Viscera & Muscle",
+          "tag": "VISCERA",
+          "is_air": false,
+          "thickness_um": 750.0,
+          "thickness_mm": 0.75,
+          "z_start_mm": 1.25,
+          "z_end_mm": 2.0,
+          "composition_volume_fractions": {
+            "water": 0.8,
+            "plant_pigment": 0.05,
+            "chitin": 0.15
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 10.0,
+            "b_mie": 1.1,
+            "f_rayleigh": 0.2,
+            "g500": 0.9
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003837,
+          "refractive_index_at_450nm": 1.379,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.3447,
+              "mu_s_mm1": 16.11,
+              "mu_s_prime_mm1": 1.473,
+              "g": 0.909,
+              "n": 1.382,
+              "penetration_depth_1_over_e_mm": 0.729
+            },
+            "450nm": {
+              "mu_a_mm1": 0.3647,
+              "mu_s_mm1": 12.598,
+              "mu_s_prime_mm1": 1.203,
+              "g": 0.904,
+              "n": 1.379,
+              "penetration_depth_1_over_e_mm": 0.764
+            },
+            "532nm": {
+              "mu_a_mm1": 0.1134,
+              "mu_s_mm1": 8.131,
+              "mu_s_prime_mm1": 0.903,
+              "g": 0.889,
+              "n": 1.376,
+              "penetration_depth_1_over_e_mm": 1.701
+            },
+            "808nm": {
+              "mu_a_mm1": 0.0339,
+              "mu_s_mm1": 2.748,
+              "mu_s_prime_mm1": 0.501,
+              "g": 0.818,
+              "n": 1.37,
+              "penetration_depth_1_over_e_mm": 4.287
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0274,
+              "mu_s_mm1": 1.584,
+              "mu_s_prime_mm1": 0.358,
+              "g": 0.774,
+              "n": 1.368,
+              "penetration_depth_1_over_e_mm": 5.614
+            },
+            "10600nm": {
+              "mu_a_mm1": 67.6008,
+              "mu_s_mm1": 0.054,
+              "mu_s_prime_mm1": 0.028,
+              "g": 0.489,
+              "n": 1.36,
+              "penetration_depth_1_over_e_mm": 0.009
+            }
+          }
+        }
+      ]
+    },
+    "snail": {
+      "model_id": "snail",
+      "common_name": "Garden Snail (Armored Mollusc)",
+      "taxonomic_classification": "Gastropoda (e.g. Cornu aspersum, Helix pomatia)",
+      "anatomical_aspect": "Mineralised Calcareous Shell over Mantle Cavity Air Gap into Muscular Foot",
+      "description": "Crossed-lamellar aragonite mineral shell (extreme Mie scattering, a'=140 cm^-1) providing photon diffusion armor over an air gap and visceral mass containing hemocyanin.",
+      "empirical_grounding": "Grounded by aragonite CaCO3 biomineral optics and gastropod copper-based hemocyanin respiratory pigment.",
+      "buried_blood_vessel": {
+        "present": false,
+        "note": "Gastropods possess an open hemocoel with hemocyanin, not a closed red blood vessel plexus."
+      },
+      "total_strata_count": 5,
+      "total_stack_thickness_um": 2515,
+      "total_stack_thickness_mm": 2.515,
+      "strata": [
+        {
+          "layer_index": 1,
+          "name": "periostracum",
+          "label": "Organic Periostracum",
+          "tag": "ORGANIC",
+          "is_air": false,
+          "thickness_um": 15.0,
+          "thickness_mm": 0.015,
+          "z_start_mm": 0.0,
+          "z_end_mm": 0.015,
+          "composition_volume_fractions": {
+            "chitin": 0.9,
+            "melanin": 0.05,
+            "water": 0.05
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 4.0,
+            "b_mie": 1.1,
+            "f_rayleigh": 0.2,
+            "g500": 0.88
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.002219,
+          "refractive_index_at_450nm": 1.551,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 5.6786,
+              "mu_s_mm1": 5.279,
+              "mu_s_prime_mm1": 0.589,
+              "g": 0.888,
+              "n": 1.552,
+              "penetration_depth_1_over_e_mm": 0.097
+            },
+            "450nm": {
+              "mu_a_mm1": 3.938,
+              "mu_s_mm1": 4.163,
+              "mu_s_prime_mm1": 0.481,
+              "g": 0.884,
+              "n": 1.551,
+              "penetration_depth_1_over_e_mm": 0.138
+            },
+            "532nm": {
+              "mu_a_mm1": 2.2029,
+              "mu_s_mm1": 2.761,
+              "mu_s_prime_mm1": 0.361,
+              "g": 0.869,
+              "n": 1.551,
+              "penetration_depth_1_over_e_mm": 0.243
+            },
+            "808nm": {
+              "mu_a_mm1": 0.5202,
+              "mu_s_mm1": 1.0,
+              "mu_s_prime_mm1": 0.2,
+              "g": 0.799,
+              "n": 1.551,
+              "penetration_depth_1_over_e_mm": 0.943
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.2081,
+              "mu_s_mm1": 0.589,
+              "mu_s_prime_mm1": 0.143,
+              "g": 0.757,
+              "n": 1.551,
+              "penetration_depth_1_over_e_mm": 2.135
+            },
+            "10600nm": {
+              "mu_a_mm1": 25.6046,
+              "mu_s_mm1": 0.021,
+              "mu_s_prime_mm1": 0.011,
+              "g": 0.478,
+              "n": 1.55,
+              "penetration_depth_1_over_e_mm": 0.023
+            }
+          }
+        },
+        {
+          "layer_index": 2,
+          "name": "aragonite_shell",
+          "label": "Aragonite CaCO3 Mineral Shell",
+          "tag": "SHELL",
+          "is_air": false,
+          "thickness_um": 200.0,
+          "thickness_mm": 0.2,
+          "z_start_mm": 0.015,
+          "z_end_mm": 0.215,
+          "composition_volume_fractions": {
+            "aragonite": 0.97,
+            "chitin": 0.03
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 140.0,
+            "b_mie": 0.5,
+            "f_rayleigh": 0.2,
+            "g500": 0.94
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.002158,
+          "refractive_index_at_450nm": 1.639,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.2507,
+              "mu_s_mm1": 371.04,
+              "mu_s_prime_mm1": 18.949,
+              "g": 0.949,
+              "n": 1.643,
+              "penetration_depth_1_over_e_mm": 0.263
+            },
+            "450nm": {
+              "mu_a_mm1": 0.1833,
+              "mu_s_mm1": 290.66,
+              "mu_s_prime_mm1": 16.073,
+              "g": 0.945,
+              "n": 1.639,
+              "penetration_depth_1_over_e_mm": 0.334
+            },
+            "532nm": {
+              "mu_a_mm1": 0.1118,
+              "mu_s_mm1": 182.184,
+              "mu_s_prime_mm1": 13.043,
+              "g": 0.928,
+              "n": 1.635,
+              "penetration_depth_1_over_e_mm": 0.476
+            },
+            "808nm": {
+              "mu_a_mm1": 0.0334,
+              "mu_s_mm1": 63.142,
+              "mu_s_prime_mm1": 9.221,
+              "g": 0.854,
+              "n": 1.629,
+              "penetration_depth_1_over_e_mm": 1.038
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0159,
+              "mu_s_mm1": 40.748,
+              "mu_s_prime_mm1": 7.814,
+              "g": 0.808,
+              "n": 1.628,
+              "penetration_depth_1_over_e_mm": 1.634
+            },
+            "10600nm": {
+              "mu_a_mm1": 0.7221,
+              "mu_s_mm1": 4.968,
+              "mu_s_prime_mm1": 2.432,
+              "g": 0.51,
+              "n": 1.625,
+              "penetration_depth_1_over_e_mm": 0.383
+            }
+          }
+        },
+        {
+          "layer_index": 3,
+          "name": "mantle_air_gap",
+          "label": "Retracted Mantle Air Gap",
+          "tag": "AIR GAP",
+          "is_air": true,
+          "thickness_um": 250.0,
+          "thickness_mm": 0.25,
+          "z_start_mm": 0.215,
+          "z_end_mm": 0.465,
+          "composition_volume_fractions": {
+            "air": 1.0
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 0.0,
+            "b_mie": 1.0,
+            "f_rayleigh": 0.2,
+            "g500": 0.0
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 1e-06,
+          "refractive_index_at_450nm": 1.0,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.0,
+              "mu_s_mm1": 0.0,
+              "mu_s_prime_mm1": 0.0,
+              "g": 0.0,
+              "n": 1.0,
+              "penetration_depth_1_over_e_mm": 999.0
+            },
+            "450nm": {
+              "mu_a_mm1": 0.0,
+              "mu_s_mm1": 0.0,
+              "mu_s_prime_mm1": 0.0,
+              "g": 0.0,
+              "n": 1.0,
+              "penetration_depth_1_over_e_mm": 999.0
+            },
+            "532nm": {
+              "mu_a_mm1": 0.0,
+              "mu_s_mm1": 0.0,
+              "mu_s_prime_mm1": 0.0,
+              "g": 0.0,
+              "n": 1.0,
+              "penetration_depth_1_over_e_mm": 999.0
+            },
+            "808nm": {
+              "mu_a_mm1": 0.0,
+              "mu_s_mm1": 0.0,
+              "mu_s_prime_mm1": 0.0,
+              "g": 0.0,
+              "n": 1.0,
+              "penetration_depth_1_over_e_mm": 999.0
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0,
+              "mu_s_mm1": 0.0,
+              "mu_s_prime_mm1": 0.0,
+              "g": 0.0,
+              "n": 1.0,
+              "penetration_depth_1_over_e_mm": 999.0
+            },
+            "10600nm": {
+              "mu_a_mm1": 0.0,
+              "mu_s_mm1": 0.0,
+              "mu_s_prime_mm1": 0.0,
+              "g": 0.0,
+              "n": 1.0,
+              "penetration_depth_1_over_e_mm": 999.0
+            }
+          }
+        },
+        {
+          "layer_index": 4,
+          "name": "mantle_epithelium",
+          "label": "Pigmented Mantle Epithelium",
+          "tag": "MANTLE",
+          "is_air": false,
+          "thickness_um": 50.0,
+          "thickness_mm": 0.05,
+          "z_start_mm": 0.465,
+          "z_end_mm": 0.515,
+          "composition_volume_fractions": {
+            "water": 0.8,
+            "melanin": 0.08,
+            "chitin": 0.12
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 10.0,
+            "b_mie": 1.1,
+            "f_rayleigh": 0.2,
+            "g500": 0.9
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003791,
+          "refractive_index_at_450nm": 1.394,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 8.93,
+              "mu_s_mm1": 16.11,
+              "mu_s_prime_mm1": 1.473,
+              "g": 0.909,
+              "n": 1.396,
+              "penetration_depth_1_over_e_mm": 0.06
+            },
+            "450nm": {
+              "mu_a_mm1": 6.1854,
+              "mu_s_mm1": 12.598,
+              "mu_s_prime_mm1": 1.203,
+              "g": 0.904,
+              "n": 1.394,
+              "penetration_depth_1_over_e_mm": 0.085
+            },
+            "532nm": {
+              "mu_a_mm1": 3.4523,
+              "mu_s_mm1": 8.131,
+              "mu_s_prime_mm1": 0.903,
+              "g": 0.889,
+              "n": 1.39,
+              "penetration_depth_1_over_e_mm": 0.149
+            },
+            "808nm": {
+              "mu_a_mm1": 0.8077,
+              "mu_s_mm1": 2.748,
+              "mu_s_prime_mm1": 0.501,
+              "g": 0.818,
+              "n": 1.385,
+              "penetration_depth_1_over_e_mm": 0.562
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.3225,
+              "mu_s_mm1": 1.584,
+              "mu_s_prime_mm1": 0.358,
+              "g": 0.774,
+              "n": 1.382,
+              "penetration_depth_1_over_e_mm": 1.232
+            },
+            "10600nm": {
+              "mu_a_mm1": 66.8807,
+              "mu_s_mm1": 0.054,
+              "mu_s_prime_mm1": 0.028,
+              "g": 0.489,
+              "n": 1.374,
+              "penetration_depth_1_over_e_mm": 0.009
+            }
+          }
+        },
+        {
+          "layer_index": 5,
+          "name": "foot_parenchyma",
+          "label": "Muscular Foot Parenchyma",
+          "tag": "VISCERA",
+          "is_air": false,
+          "thickness_um": 2000.0,
+          "thickness_mm": 2.0,
+          "z_start_mm": 0.515,
+          "z_end_mm": 2.515,
+          "composition_volume_fractions": {
+            "water": 0.84,
+            "chitin": 0.16
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 12.0,
+            "b_mie": 1.1,
+            "f_rayleigh": 0.2,
+            "g500": 0.91
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003851,
+          "refractive_index_at_450nm": 1.373,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.2494,
+              "mu_s_mm1": 21.731,
+              "mu_s_prime_mm1": 1.768,
+              "g": 0.919,
+              "n": 1.376,
+              "penetration_depth_1_over_e_mm": 0.814
+            },
+            "450nm": {
+              "mu_a_mm1": 0.1821,
+              "mu_s_mm1": 16.896,
+              "mu_s_prime_mm1": 1.444,
+              "g": 0.915,
+              "n": 1.373,
+              "penetration_depth_1_over_e_mm": 1.061
+            },
+            "532nm": {
+              "mu_a_mm1": 0.1109,
+              "mu_s_mm1": 10.709,
+              "mu_s_prime_mm1": 1.084,
+              "g": 0.899,
+              "n": 1.37,
+              "penetration_depth_1_over_e_mm": 1.586
+            },
+            "808nm": {
+              "mu_a_mm1": 0.034,
+              "mu_s_mm1": 3.471,
+              "mu_s_prime_mm1": 0.601,
+              "g": 0.827,
+              "n": 1.364,
+              "penetration_depth_1_over_e_mm": 3.926
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0281,
+              "mu_s_mm1": 1.976,
+              "mu_s_prime_mm1": 0.43,
+              "g": 0.782,
+              "n": 1.362,
+              "penetration_depth_1_over_e_mm": 5.086
+            },
+            "10600nm": {
+              "mu_a_mm1": 71.0408,
+              "mu_s_mm1": 0.066,
+              "mu_s_prime_mm1": 0.033,
+              "g": 0.494,
+              "n": 1.353,
+              "penetration_depth_1_over_e_mm": 0.008
+            }
+          }
+        }
+      ]
+    },
+    "slug": {
+      "model_id": "slug",
+      "common_name": "Field Slug (Soft Hydrated Mollusc)",
+      "taxonomic_classification": "Gastropoda (e.g. Deroceras reticulatum, Arion vulgaris)",
+      "anatomical_aspect": "Sacrificial Surface Mucus Film over Mantle Dermis into Visceral Mass",
+      "description": "Softest biophotonic target: 94-96% water throughout, with a sacrificial hydrated mucus surface layer, no mineral shell, and direct visceral exposure.",
+      "empirical_grounding": "Grounded by molluscan mucin optical dispersion and high water fraction (94-96%) thermodynamics.",
+      "buried_blood_vessel": {
+        "present": false,
+        "note": "Hemolymph sinus distribution throughout parenchyma without discrete closed 0.25 mm hemoglobin vessel."
+      },
+      "total_strata_count": 3,
+      "total_stack_thickness_um": 2120,
+      "total_stack_thickness_mm": 2.12,
+      "strata": [
+        {
+          "layer_index": 1,
+          "name": "surface_mucus",
+          "label": "Hydrated Mucus Film",
+          "tag": "MUCUS",
+          "is_air": false,
+          "thickness_um": 40.0,
+          "thickness_mm": 0.04,
+          "z_start_mm": 0.0,
+          "z_end_mm": 0.04,
+          "composition_volume_fractions": {
+            "water": 0.96,
+            "chitin": 0.04
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 3.0,
+            "b_mie": 1.3,
+            "f_rayleigh": 0.2,
+            "g500": 0.9
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.004101,
+          "refractive_index_at_450nm": 1.347,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.2488,
+              "mu_s_mm1": 4.976,
+              "mu_s_prime_mm1": 0.455,
+              "g": 0.909,
+              "n": 1.351,
+              "penetration_depth_1_over_e_mm": 1.38
+            },
+            "450nm": {
+              "mu_a_mm1": 0.1815,
+              "mu_s_mm1": 3.84,
+              "mu_s_prime_mm1": 0.367,
+              "g": 0.904,
+              "n": 1.347,
+              "penetration_depth_1_over_e_mm": 1.83
+            },
+            "532nm": {
+              "mu_a_mm1": 0.1104,
+              "mu_s_mm1": 2.414,
+              "mu_s_prime_mm1": 0.268,
+              "g": 0.889,
+              "n": 1.343,
+              "penetration_depth_1_over_e_mm": 2.825
+            },
+            "808nm": {
+              "mu_a_mm1": 0.0336,
+              "mu_s_mm1": 0.753,
+              "mu_s_prime_mm1": 0.137,
+              "g": 0.818,
+              "n": 1.337,
+              "penetration_depth_1_over_e_mm": 7.614
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0288,
+              "mu_s_mm1": 0.411,
+              "mu_s_prime_mm1": 0.093,
+              "g": 0.774,
+              "n": 1.334,
+              "penetration_depth_1_over_e_mm": 9.765
+            },
+            "10600nm": {
+              "mu_a_mm1": 77.7602,
+              "mu_s_mm1": 0.009,
+              "mu_s_prime_mm1": 0.005,
+              "g": 0.489,
+              "n": 1.324,
+              "penetration_depth_1_over_e_mm": 0.007
+            }
+          }
+        },
+        {
+          "layer_index": 2,
+          "name": "mantle_dermis",
+          "label": "Mantle Dermis & Pigment",
+          "tag": "DERMIS",
+          "is_air": false,
+          "thickness_um": 80.0,
+          "thickness_mm": 0.08,
+          "z_start_mm": 0.04,
+          "z_end_mm": 0.12,
+          "composition_volume_fractions": {
+            "water": 0.88,
+            "melanin": 0.03,
+            "chitin": 0.09
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 9.0,
+            "b_mie": 1.1,
+            "f_rayleigh": 0.2,
+            "g500": 0.9
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003943,
+          "refractive_index_at_450nm": 1.369,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 3.5044,
+              "mu_s_mm1": 14.499,
+              "mu_s_prime_mm1": 1.326,
+              "g": 0.909,
+              "n": 1.372,
+              "penetration_depth_1_over_e_mm": 0.14
+            },
+            "450nm": {
+              "mu_a_mm1": 2.4331,
+              "mu_s_mm1": 11.338,
+              "mu_s_prime_mm1": 1.083,
+              "g": 0.904,
+              "n": 1.369,
+              "penetration_depth_1_over_e_mm": 0.197
+            },
+            "532nm": {
+              "mu_a_mm1": 1.3637,
+              "mu_s_mm1": 7.317,
+              "mu_s_prime_mm1": 0.813,
+              "g": 0.889,
+              "n": 1.365,
+              "penetration_depth_1_over_e_mm": 0.335
+            },
+            "808nm": {
+              "mu_a_mm1": 0.324,
+              "mu_s_mm1": 2.473,
+              "mu_s_prime_mm1": 0.451,
+              "g": 0.818,
+              "n": 1.359,
+              "penetration_depth_1_over_e_mm": 1.152
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.1388,
+              "mu_s_mm1": 1.426,
+              "mu_s_prime_mm1": 0.323,
+              "g": 0.774,
+              "n": 1.357,
+              "penetration_depth_1_over_e_mm": 2.282
+            },
+            "10600nm": {
+              "mu_a_mm1": 72.5605,
+              "mu_s_mm1": 0.049,
+              "mu_s_prime_mm1": 0.025,
+              "g": 0.489,
+              "n": 1.347,
+              "penetration_depth_1_over_e_mm": 0.008
+            }
+          }
+        },
+        {
+          "layer_index": 3,
+          "name": "visceral_parenchyma",
+          "label": "Visceral Connective Tissue",
+          "tag": "VISCERA",
+          "is_air": false,
+          "thickness_um": 2000.0,
+          "thickness_mm": 2.0,
+          "z_start_mm": 0.12,
+          "z_end_mm": 2.12,
+          "composition_volume_fractions": {
+            "water": 0.86,
+            "chitin": 0.14
+          },
+          "scattering_closure_parameters": {
+            "a_prime_cm1": 10.0,
+            "b_mie": 1.1,
+            "f_rayleigh": 0.2,
+            "g500": 0.91
+          },
+          "volumetric_heat_capacity_rho_cp_J_per_mm3_K": 0.003892,
+          "refractive_index_at_450nm": 1.369,
+          "spectral_optical_properties": {
+            "405nm": {
+              "mu_a_mm1": 0.2493,
+              "mu_s_mm1": 18.11,
+              "mu_s_prime_mm1": 1.473,
+              "g": 0.919,
+              "n": 1.372,
+              "penetration_depth_1_over_e_mm": 0.881
+            },
+            "450nm": {
+              "mu_a_mm1": 0.182,
+              "mu_s_mm1": 14.08,
+              "mu_s_prime_mm1": 1.203,
+              "g": 0.915,
+              "n": 1.369,
+              "penetration_depth_1_over_e_mm": 1.15
+            },
+            "532nm": {
+              "mu_a_mm1": 0.1108,
+              "mu_s_mm1": 8.924,
+              "mu_s_prime_mm1": 0.903,
+              "g": 0.899,
+              "n": 1.365,
+              "penetration_depth_1_over_e_mm": 1.722
+            },
+            "808nm": {
+              "mu_a_mm1": 0.034,
+              "mu_s_mm1": 2.892,
+              "mu_s_prime_mm1": 0.501,
+              "g": 0.827,
+              "n": 1.36,
+              "penetration_depth_1_over_e_mm": 4.282
+            },
+            "1064nm": {
+              "mu_a_mm1": 0.0282,
+              "mu_s_mm1": 1.647,
+              "mu_s_prime_mm1": 0.358,
+              "g": 0.782,
+              "n": 1.357,
+              "penetration_depth_1_over_e_mm": 5.527
+            },
+            "10600nm": {
+              "mu_a_mm1": 72.1607,
+              "mu_s_mm1": 0.055,
+              "mu_s_prime_mm1": 0.028,
+              "g": 0.494,
+              "n": 1.348,
+              "penetration_depth_1_over_e_mm": 0.008
+            }
+          }
+        }
+      ]
+    }
+  }
+}

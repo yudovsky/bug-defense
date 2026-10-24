@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 844" width="1100" height="844" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<rect width="1100" height="844" fill="#fff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#52606d"/></marker></defs>
+<text x="40" y="38" font-size="22" font-weight="700" fill="#1f2933">One epoch of the beetle simulation</text>
+<text x="40" y="60" font-size="13" fill="#52606d">Five steps, repeated every 20 ms of laser exposure.</text>
+<rect x="40" y="86" width="940" height="162" rx="10" fill="#e8f1fa" stroke="#2b7bba" stroke-width="1.5"/>
+<circle cx="68" cy="112" r="13" fill="#2b7bba"/><text x="68" y="117" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+<text x="92" y="117" font-size="17" font-weight="700" fill="#1f2933">Light transport (radiative transfer equation)</text>
+<text x="92" y="144" font-size="14" fill="#323f4b">Photons are traced through the current geometry, including craters and plume, to solve:</text>
+<rect x="92" y="159" width="860" height="32" rx="6" fill="#ffffff" stroke="#2b7bba" stroke-opacity="0.5"/>
+<text x="108" y="180" font-size="16" font-style="italic" fill="#1f2933" font-family="Georgia, 'Times New Roman', serif">(ŝ · ∇) L(r, ŝ) = −(μa + μs) L(r, ŝ) + μs ∫ p(ŝ · ŝ′) L(r, ŝ′) dΩ′</text>
+<text x="92" y="210.0" font-size="12" fill="#52606d">L = radiance, ŝ = direction, p = scattering phase function (anisotropy g), μa and μs from each voxel.</text>
+<text x="92" y="230.0" font-size="14" fill="#323f4b">Output: fraction A of the laser power P absorbed in each voxel. Heat source Q = P · A / V = μa · Φ.</text>
+<rect x="40" y="274" width="940" height="162" rx="10" fill="#fdf1dc" stroke="#c9831a" stroke-width="1.5"/>
+<circle cx="68" cy="300" r="13" fill="#c9831a"/><text x="68" y="305" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+<text x="92" y="305" font-size="17" font-weight="700" fill="#1f2933">Heat flow (heat equation)</text>
+<text x="92" y="332" font-size="14" fill="#323f4b">The heat source warms each voxel and heat spreads to its neighbours (800 sub-steps of 25 µs):</text>
+<rect x="92" y="347" width="860" height="32" rx="6" fill="#ffffff" stroke="#c9831a" stroke-opacity="0.5"/>
+<text x="108" y="368" font-size="16" font-style="italic" fill="#1f2933" font-family="Georgia, 'Times New Roman', serif">ρcp · ∂T/∂t = ∇ · (k ∇T) + Q</text>
+<text x="92" y="398.0" font-size="12" fill="#52606d">T = temperature, ρcp = volumetric heat capacity, k = thermal conductivity. Surface loss by convection and radiation.</text>
+<text x="92" y="418.0" font-size="14" fill="#323f4b">Water at 100 °C: temperature held while latent heat is banked.</text>
+<rect x="40" y="462" width="940" height="100" rx="10" fill="#f3e6dc" stroke="#8a4b22" stroke-width="1.5"/>
+<circle cx="68" cy="488" r="13" fill="#8a4b22"/><text x="68" y="493" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+<text x="92" y="493" font-size="17" font-weight="700" fill="#1f2933">Phase change and ablation</text>
+<text x="92" y="520" font-size="14" fill="#323f4b">Wet voxels dry out when latent heat is full. Dry voxels char: dχ/dt = (1 − χ) · A · e^(−Ea/RT).</text>
+<text x="92" y="544" font-size="14" fill="#323f4b">A voxel is removed when T ≥ 350 °C and χ ≥ 0.95. It becomes air, with air's optical and thermal properties.</text>
+<rect x="40" y="588" width="940" height="100" rx="10" fill="#efeaf7" stroke="#6b4fa0" stroke-width="1.5"/>
+<circle cx="68" cy="614" r="13" fill="#6b4fa0"/><text x="68" y="619" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+<text x="92" y="619" font-size="17" font-weight="700" fill="#1f2933">Plume update</text>
+<text x="92" y="646" font-size="14" fill="#323f4b">Ablated material enters the void as plume, diffuses upward and out, and decays.</text>
+<text x="92" y="670" font-size="14" fill="#323f4b">The plume absorbs and scatters light, so it shields the beam in the next epoch.</text>
+<rect x="40" y="714" width="940" height="100" rx="10" fill="#e6f4ec" stroke="#2e8b57" stroke-width="1.5"/>
+<circle cx="68" cy="740" r="13" fill="#2e8b57"/><text x="68" y="745" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">5</text>
+<text x="92" y="745" font-size="17" font-weight="700" fill="#1f2933">Record and check events</text>
+<text x="92" y="772" font-size="14" fill="#323f4b">Save T, Q, phase map and crater depth. Peak temperature in dorsal shell, core and ventral plate.</text>
+<text x="92" y="796" font-size="14" fill="#323f4b">Events: shell perforation, core boil (100 °C), ventral plate blister.</text>
+<line x1="510.0" y1="248" x2="510.0" y2="274" stroke="#52606d" stroke-width="2.5" marker-end="url(#a)"/>
+<line x1="510.0" y1="436" x2="510.0" y2="462" stroke="#52606d" stroke-width="2.5" marker-end="url(#a)"/>
+<line x1="510.0" y1="562" x2="510.0" y2="588" stroke="#52606d" stroke-width="2.5" marker-end="url(#a)"/>
+<line x1="510.0" y1="688" x2="510.0" y2="714" stroke="#52606d" stroke-width="2.5" marker-end="url(#a)"/>
+<path d="M980 764.0 H1020 V167.0 H982" fill="none" stroke="#52606d" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#a)"/>
+<text x="1038" y="465.5" font-size="12" font-weight="600" fill="#52606d" text-anchor="middle" transform="rotate(90 1038 465.5)">updated geometry, plume and properties feed the next epoch</text>
+</svg>

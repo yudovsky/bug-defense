@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 488" width="900" height="488" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<rect width="900" height="488" fill="#ffffff"/>
+<text x="28" y="34" font-size="20" font-weight="700" fill="#1f2933">Thermal properties of each layer</text>
+<text x="28" y="62" font-size="14" fill="#323f4b"><tspan font-weight="700">k</tspan>, thermal conductivity: how fast heat flows through the layer.</text>
+<text x="28" y="84" font-size="14" fill="#323f4b"><tspan font-weight="700">ρcp</tspan>, volumetric heat capacity: heat needed to warm 1 cm³ by 1 °C. Higher ρcp means slower heating.</text>
+<line x1="28" y1="100" x2="872" y2="100" stroke="#1f2933" stroke-width="1.5"/>
+<text x="62" y="130" font-size="11" font-weight="600" fill="#7b8794" letter-spacing="0.6">LAYER</text>
+<text x="560" y="130" font-size="11" font-weight="600" fill="#7b8794" letter-spacing="0.6" text-anchor="end">k  (W/m·K)</text>
+<text x="862" y="130" font-size="11" font-weight="600" fill="#7b8794" letter-spacing="0.6" text-anchor="end">ρcp  (J/cm³·K)</text>
+<line x1="28" y1="165" x2="872" y2="165" stroke="#e4e7eb"/>
+<rect x="28" y="136" width="20" height="20" rx="4" fill="#f6e7a8" stroke="#9aa5b1"/>
+<text x="62" y="152" font-size="15" font-weight="600" fill="#1f2933">Epicuticle wax</text>
+<text x="560" y="152" font-size="15" fill="#323f4b" text-anchor="end">0.22</text>
+<text x="862" y="152" font-size="15" fill="#323f4b" text-anchor="end">1.98</text>
+<line x1="28" y1="201" x2="872" y2="201" stroke="#e4e7eb"/>
+<rect x="28" y="172" width="20" height="20" rx="4" fill="#a0673f" stroke="#9aa5b1"/>
+<text x="62" y="188" font-size="15" font-weight="600" fill="#1f2933">Exocuticle</text>
+<text x="560" y="188" font-size="15" fill="#323f4b" text-anchor="end">0.28</text>
+<text x="862" y="188" font-size="15" fill="#323f4b" text-anchor="end">2.275</text>
+<line x1="28" y1="237" x2="872" y2="237" stroke="#e4e7eb"/>
+<rect x="28" y="208" width="20" height="20" rx="4" fill="#d9b68a" stroke="#9aa5b1"/>
+<text x="62" y="224" font-size="15" font-weight="600" fill="#1f2933">Endocuticle</text>
+<text x="560" y="224" font-size="15" fill="#323f4b" text-anchor="end">0.35</text>
+<text x="862" y="224" font-size="15" fill="#323f4b" text-anchor="end">2.88</text>
+<line x1="28" y1="273" x2="872" y2="273" stroke="#e4e7eb"/>
+<rect x="28" y="244" width="20" height="20" rx="4" fill="#dfe9f4" stroke="#9aa5b1"/>
+<text x="62" y="260" font-size="15" font-weight="600" fill="#1f2933">Subelytral air gap</text>
+<text x="560" y="260" font-size="15" fill="#323f4b" text-anchor="end">0.026</text>
+<text x="862" y="260" font-size="15" fill="#323f4b" text-anchor="end">0.0012</text>
+<line x1="28" y1="309" x2="872" y2="309" stroke="#e4e7eb"/>
+<rect x="28" y="280" width="20" height="20" rx="4" fill="#f2c4c4" stroke="#9aa5b1"/>
+<text x="62" y="296" font-size="15" font-weight="600" fill="#1f2933">Epidermis</text>
+<text x="560" y="296" font-size="15" fill="#323f4b" text-anchor="end">0.52</text>
+<text x="862" y="296" font-size="15" fill="#323f4b" text-anchor="end">3.70</text>
+<line x1="28" y1="345" x2="872" y2="345" stroke="#e4e7eb"/>
+<rect x="28" y="316" width="20" height="20" rx="4" fill="#f7e08a" stroke="#9aa5b1"/>
+<text x="62" y="332" font-size="15" font-weight="600" fill="#1f2933">Fat body</text>
+<text x="560" y="332" font-size="15" fill="#323f4b" text-anchor="end">0.35</text>
+<text x="862" y="332" font-size="15" fill="#323f4b" text-anchor="end">2.90</text>
+<line x1="28" y1="381" x2="872" y2="381" stroke="#e4e7eb"/>
+<rect x="28" y="352" width="20" height="20" rx="4" fill="#cfe3f3" stroke="#9aa5b1"/>
+<text x="62" y="368" font-size="15" font-weight="600" fill="#1f2933">Hemolymph</text>
+<text x="560" y="368" font-size="15" fill="#323f4b" text-anchor="end">0.55</text>
+<text x="862" y="368" font-size="15" fill="#323f4b" text-anchor="end">4.10</text>
+<line x1="28" y1="417" x2="872" y2="417" stroke="#e4e7eb"/>
+<rect x="28" y="388" width="20" height="20" rx="4" fill="#e6a7a7" stroke="#9aa5b1"/>
+<text x="62" y="404" font-size="15" font-weight="600" fill="#1f2933">Muscle</text>
+<text x="560" y="404" font-size="15" fill="#323f4b" text-anchor="end">0.52</text>
+<text x="862" y="404" font-size="15" fill="#323f4b" text-anchor="end">3.92</text>
+<text x="28" y="474" font-size="12" fill="#7b8794">Composition-weighted values from water, chitin, protein and lipid. Ventral layers reuse the same values.</text>
+</svg>

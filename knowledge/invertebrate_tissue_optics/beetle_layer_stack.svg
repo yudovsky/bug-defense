@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 666" width="960" height="666" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title>Full beetle tissue model: layer stack</title>
+  <desc>Thirteen layers of the full beetle model from the dorsal surface to the ventral surface: dorsal cuticle, subelytral air gap, internal tissue, and a hard ventral cuticle plate.</desc>
+  <defs>
+    <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="8" height="8" fill="#f4f8fc"/>
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#c5d3e3" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="960" height="666" fill="#ffffff"/>
+  <text x="40" y="38" font-size="22" font-weight="700" fill="#1f2933">Full beetle tissue model: layer stack</text>
+  <text x="40" y="60" font-size="13" fill="#52606d">Dorsal surface at top, ventral at bottom. Schematic, not to scale. Thickness in µm; total 3000 µm.</text>
+  <text x="540" y="86" font-size="12" font-weight="600" fill="#52606d">MAIN COMPONENTS (VOLUME FRACTION)</text>
+  <rect x="90" y="96" width="420" height="20" fill="#f6e7a8" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="300.0" y="110.0" font-size="11" font-weight="600" fill="#3e3a1f" text-anchor="middle">Epicuticle wax · 2</text>
+  <text x="540" y="110.0" font-size="12" fill="#323f4b">lipid 85%, protein 15%</text>
+  <rect x="90" y="116" width="420" height="50" fill="#a0673f" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="300.0" y="139.0" font-size="13" font-weight="600" fill="#ffffff" text-anchor="middle">Dorsal exocuticle · 60</text>
+  <text x="300.0" y="154.0" font-size="11" fill="#ffffff" text-anchor="middle">tanned, melanised</text>
+  <text x="540" y="145.0" font-size="12" fill="#323f4b">water 18%, chitin/protein, melanin 7.5%, ommochrome 1.2%</text>
+  <rect x="90" y="166" width="420" height="50" fill="#d9b68a" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="300.0" y="189.0" font-size="13" font-weight="600" fill="#3b2a14" text-anchor="middle">Dorsal endocuticle · 100</text>
+  <text x="300.0" y="204.0" font-size="11" fill="#3b2a14" text-anchor="middle">untanned, hydrated</text>
+  <text x="540" y="195.0" font-size="12" fill="#323f4b">water 42%, chitin 33%, protein 25%</text>
+  <rect x="90" y="216" width="420" height="50" fill="url(#hatch)" stroke-dasharray="5 3" stroke="#6b8cae" stroke-width="1"/>
+  <text x="300.0" y="245.0" font-size="13" font-weight="600" fill="#2f4a68" text-anchor="middle">Subelytral air gap · 300</text>
+  <text x="540" y="245.0" font-size="12" fill="#323f4b">air</text>
+  <rect x="90" y="266" width="420" height="24" fill="#f2c4c4" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="300.0" y="282.0" font-size="11" font-weight="600" fill="#5a2a2a" text-anchor="middle">Epidermis · 20</text>
+  <text x="540" y="282.0" font-size="12" fill="#323f4b">water 70%, protein 22%, lipid 8%</text>
+  <rect x="90" y="290" width="420" height="44" fill="#f7e08a" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="300.0" y="316.0" font-size="13" font-weight="600" fill="#4d3d00" text-anchor="middle">Fat body · 300</text>
+  <text x="540" y="316.0" font-size="12" fill="#323f4b">lipid 50%, water 38%, protein 12%</text>
+  <rect x="90" y="334" width="420" height="44" fill="#cfe3f3" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="300.0" y="360.0" font-size="13" font-weight="600" fill="#1f4466" text-anchor="middle">Hemolymph · 250</text>
+  <text x="540" y="360.0" font-size="12" fill="#323f4b">water 93%, protein 7%</text>
+  <rect x="90" y="378" width="420" height="70" fill="#e6a7a7" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="300.0" y="417.0" font-size="13" font-weight="600" fill="#5a1f1f" text-anchor="middle">Muscle · 1581</text>
+  <text x="540" y="417.0" font-size="12" fill="#323f4b">water 76%, protein 21%, lipid 3%</text>
+  <rect x="90" y="448" width="420" height="44" fill="#f7e08a" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="300.0" y="474.0" font-size="13" font-weight="600" fill="#4d3d00" text-anchor="middle">Fat body · 300</text>
+  <text x="540" y="474.0" font-size="12" fill="#323f4b">lipid 50%, water 38%, protein 12%</text>
+  <rect x="90" y="492" width="420" height="24" fill="#f2c4c4" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="300.0" y="508.0" font-size="11" font-weight="600" fill="#5a2a2a" text-anchor="middle">Epidermis · 20</text>
+  <text x="540" y="508.0" font-size="12" fill="#323f4b">water 70%, protein 22%, lipid 8%</text>
+  <rect x="90" y="516" width="420" height="40" fill="#d9b68a" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="300.0" y="534.0" font-size="13" font-weight="600" fill="#3b2a14" text-anchor="middle">Ventral endocuticle · 40</text>
+  <text x="300.0" y="549.0" font-size="11" fill="#3b2a14" text-anchor="middle">untanned, hydrated</text>
+  <text x="540" y="540.0" font-size="12" fill="#323f4b">water 42%, chitin 33%, protein 25%</text>
+  <rect x="90" y="556" width="420" height="40" fill="#a0673f" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="300.0" y="574.0" font-size="13" font-weight="600" fill="#ffffff" text-anchor="middle">Ventral exocuticle · 25</text>
+  <text x="300.0" y="589.0" font-size="11" fill="#ffffff" text-anchor="middle">hard plate, melanised</text>
+  <text x="540" y="580.0" font-size="12" fill="#323f4b">water 18%, chitin/protein, melanin 3%, ommochrome 0.8%</text>
+  <rect x="90" y="596" width="420" height="20" fill="#f6e7a8" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="300.0" y="610.0" font-size="11" font-weight="600" fill="#3e3a1f" text-anchor="middle">Epicuticle wax · 2</text>
+  <text x="540" y="610.0" font-size="12" fill="#323f4b">lipid 85%, protein 15%</text>
+  <path d="M78 98 H72 V214 H78" fill="none" stroke="#52606d" stroke-width="1.5"/>
+  <text font-size="12" fill="#52606d" text-anchor="middle" transform="translate(56 156.0) rotate(-90)">dorsal cuticle · 162</text>
+  <path d="M78 218 H72 V264 H78" fill="none" stroke="#52606d" stroke-width="1.5"/>
+  <text font-size="12" fill="#52606d" text-anchor="middle" transform="translate(56 241.0) rotate(-90)">air · 300</text>
+  <path d="M78 268 H72 V514 H78" fill="none" stroke="#52606d" stroke-width="1.5"/>
+  <text font-size="12" fill="#52606d" text-anchor="middle" transform="translate(56 391.0) rotate(-90)">internal tissue · 2471</text>
+  <path d="M78 518 H72 V614 H78" fill="none" stroke="#52606d" stroke-width="1.5"/>
+  <text font-size="12" fill="#52606d" text-anchor="middle" transform="translate(56 566.0) rotate(-90)">ventral cuticle · 67</text>
+  <text x="40" y="648" font-size="12" fill="#7b8794">Brackets sum to 3000 µm. Hard (sclerotised) layers: dorsal and ventral exocuticle.</text>
+</svg>

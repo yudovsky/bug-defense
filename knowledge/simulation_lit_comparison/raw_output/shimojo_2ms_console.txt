@@ -1,0 +1,8 @@
+  running 6 cases in 6 processes x 3 threads
+  50 W @ 0.5 mm/s: vap_depth=3.70, vap_width=2.80, coag_depth=3.00, coag_width=8.60  (2397 s)
+  50 W @ 0.75 mm/s: vap_depth=2.20, vap_width=2.40, coag_depth=3.00, coag_width=8.00  (1682 s)
+  50 W @ 1.0 mm/s: vap_depth=1.50, vap_width=2.00, coag_depth=2.90, coag_width=7.40  (1339 s)
+  10 W @ 1.0 mm/s: coag_depth=1.90, coag_width=3.20  (952 s)
+  10 W @ 1.25 mm/s: coag_depth=1.60, coag_width=2.60  (793 s)
+  10 W @ 1.5 mm/s: coag_depth=1.40, coag_width=2.20  (654 s)
+SHIMOJO_DONE

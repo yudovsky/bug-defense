@@ -1,0 +1,496 @@
+{
+ "source": "McMillan et al. 2021, Fig. 3",
+ "units": {
+  "energy": "mJ/pixel",
+  "depth": "mm"
+ },
+ "calibration": {
+  "x_ticks_pt": [
+   152.0,
+   195.7,
+   239.5,
+   283.3,
+   327.1,
+   370.8,
+   414.6,
+   458.4
+  ],
+  "y_ticks_pt": [
+   248.5,
+   225.7,
+   203.0,
+   180.2,
+   157.5,
+   134.8,
+   112.0,
+   89.3
+  ]
+ },
+ "experiment": [
+  {
+   "energy_mJ": 50,
+   "depth_mm": 0.1396,
+   "err_lo_mm": 0.1246,
+   "err_hi_mm": 0.1546
+  },
+  {
+   "energy_mJ": 100,
+   "depth_mm": 0.1767,
+   "err_lo_mm": 0.1653,
+   "err_hi_mm": 0.1881
+  },
+  {
+   "energy_mJ": 150,
+   "depth_mm": 0.2633,
+   "err_lo_mm": 0.2453,
+   "err_hi_mm": 0.2813
+  },
+  {
+   "energy_mJ": 200,
+   "depth_mm": 0.3122,
+   "err_lo_mm": 0.2755,
+   "err_hi_mm": 0.3489
+  },
+  {
+   "energy_mJ": 250,
+   "depth_mm": 0.3315,
+   "err_lo_mm": 0.3095,
+   "err_hi_mm": 0.3535
+  },
+  {
+   "energy_mJ": 300,
+   "depth_mm": 0.371,
+   "err_lo_mm": 0.3458,
+   "err_hi_mm": 0.3962
+  },
+  {
+   "energy_mJ": 350,
+   "depth_mm": 0.4293,
+   "err_lo_mm": 0.4094,
+   "err_hi_mm": 0.4492
+  },
+  {
+   "energy_mJ": 400,
+   "depth_mm": 0.3993,
+   "err_lo_mm": 0.3683,
+   "err_hi_mm": 0.4303
+  }
+ ],
+ "simulation": {
+  "300": [
+   {
+    "energy_mJ": 50,
+    "depth_mm": 0.1576
+   },
+   {
+    "energy_mJ": 75,
+    "depth_mm": 0.2525
+   },
+   {
+    "energy_mJ": 100,
+    "depth_mm": 0.325
+   },
+   {
+    "energy_mJ": 125,
+    "depth_mm": 0.3925
+   },
+   {
+    "energy_mJ": 150,
+    "depth_mm": 0.4488
+   },
+   {
+    "energy_mJ": 175,
+    "depth_mm": 0.4988
+   },
+   {
+    "energy_mJ": 200,
+    "depth_mm": 0.5425
+   },
+   {
+    "energy_mJ": 225,
+    "depth_mm": 0.585
+   },
+   {
+    "energy_mJ": 250,
+    "depth_mm": 0.6275
+   },
+   {
+    "energy_mJ": 275,
+    "depth_mm": 0.665
+   },
+   {
+    "energy_mJ": 300,
+    "depth_mm": 0.6962
+   },
+   {
+    "energy_mJ": 325,
+    "depth_mm": 0.7287
+   },
+   {
+    "energy_mJ": 350,
+    "depth_mm": 0.7562
+   },
+   {
+    "energy_mJ": 375,
+    "depth_mm": 0.7862
+   },
+   {
+    "energy_mJ": 400,
+    "depth_mm": 0.81
+   }
+  ],
+  "350": [
+   {
+    "energy_mJ": 50,
+    "depth_mm": 0.1338
+   },
+   {
+    "energy_mJ": 75,
+    "depth_mm": 0.2188
+   },
+   {
+    "energy_mJ": 100,
+    "depth_mm": 0.2813
+   },
+   {
+    "energy_mJ": 125,
+    "depth_mm": 0.3375
+   },
+   {
+    "energy_mJ": 150,
+    "depth_mm": 0.3825
+   },
+   {
+    "energy_mJ": 175,
+    "depth_mm": 0.4375
+   },
+   {
+    "energy_mJ": 200,
+    "depth_mm": 0.4175
+   },
+   {
+    "energy_mJ": 225,
+    "depth_mm": 0.5025
+   },
+   {
+    "energy_mJ": 250,
+    "depth_mm": 0.5325
+   },
+   {
+    "energy_mJ": 275,
+    "depth_mm": 0.5625
+   },
+   {
+    "energy_mJ": 300,
+    "depth_mm": 0.5925
+   },
+   {
+    "energy_mJ": 325,
+    "depth_mm": 0.6187
+   },
+   {
+    "energy_mJ": 350,
+    "depth_mm": 0.6525
+   },
+   {
+    "energy_mJ": 375,
+    "depth_mm": 0.67
+   },
+   {
+    "energy_mJ": 400,
+    "depth_mm": 0.6137
+   }
+  ],
+  "400": [
+   {
+    "energy_mJ": 50,
+    "depth_mm": 0.1088
+   },
+   {
+    "energy_mJ": 75,
+    "depth_mm": 0.19
+   },
+   {
+    "energy_mJ": 100,
+    "depth_mm": 0.245
+   },
+   {
+    "energy_mJ": 125,
+    "depth_mm": 0.2913
+   },
+   {
+    "energy_mJ": 150,
+    "depth_mm": 0.3325
+   },
+   {
+    "energy_mJ": 175,
+    "depth_mm": 0.37
+   },
+   {
+    "energy_mJ": 200,
+    "depth_mm": 0.405
+   },
+   {
+    "energy_mJ": 225,
+    "depth_mm": 0.39
+   },
+   {
+    "energy_mJ": 250,
+    "depth_mm": 0.4613
+   },
+   {
+    "energy_mJ": 275,
+    "depth_mm": 0.43
+   },
+   {
+    "energy_mJ": 300,
+    "depth_mm": 0.5088
+   },
+   {
+    "energy_mJ": 325,
+    "depth_mm": 0.53
+   },
+   {
+    "energy_mJ": 350,
+    "depth_mm": 0.5513
+   },
+   {
+    "energy_mJ": 375,
+    "depth_mm": 0.5725
+   },
+   {
+    "energy_mJ": 400,
+    "depth_mm": 0.59
+   }
+  ],
+  "450": [
+   {
+    "energy_mJ": 50,
+    "depth_mm": 0.0876
+   },
+   {
+    "energy_mJ": 75,
+    "depth_mm": 0.1551
+   },
+   {
+    "energy_mJ": 100,
+    "depth_mm": 0.2138
+   },
+   {
+    "energy_mJ": 125,
+    "depth_mm": 0.2513
+   },
+   {
+    "energy_mJ": 150,
+    "depth_mm": 0.29
+   },
+   {
+    "energy_mJ": 175,
+    "depth_mm": 0.2825
+   },
+   {
+    "energy_mJ": 200,
+    "depth_mm": 0.3088
+   },
+   {
+    "energy_mJ": 225,
+    "depth_mm": 0.3725
+   },
+   {
+    "energy_mJ": 250,
+    "depth_mm": 0.405
+   },
+   {
+    "energy_mJ": 275,
+    "depth_mm": 0.4338
+   },
+   {
+    "energy_mJ": 300,
+    "depth_mm": 0.4488
+   },
+   {
+    "energy_mJ": 325,
+    "depth_mm": 0.4625
+   },
+   {
+    "energy_mJ": 350,
+    "depth_mm": 0.4825
+   },
+   {
+    "energy_mJ": 375,
+    "depth_mm": 0.495
+   },
+   {
+    "energy_mJ": 400,
+    "depth_mm": 0.5163
+   }
+  ],
+  "500": [
+   {
+    "energy_mJ": 50,
+    "depth_mm": 0.0613
+   },
+   {
+    "energy_mJ": 75,
+    "depth_mm": 0.1263
+   },
+   {
+    "energy_mJ": 100,
+    "depth_mm": 0.18
+   },
+   {
+    "energy_mJ": 125,
+    "depth_mm": 0.2238
+   },
+   {
+    "energy_mJ": 150,
+    "depth_mm": 0.2225
+   },
+   {
+    "energy_mJ": 175,
+    "depth_mm": 0.28
+   },
+   {
+    "energy_mJ": 200,
+    "depth_mm": 0.3025
+   },
+   {
+    "energy_mJ": 225,
+    "depth_mm": 0.325
+   },
+   {
+    "energy_mJ": 250,
+    "depth_mm": 0.3475
+   },
+   {
+    "energy_mJ": 275,
+    "depth_mm": 0.37
+   },
+   {
+    "energy_mJ": 300,
+    "depth_mm": 0.3913
+   },
+   {
+    "energy_mJ": 325,
+    "depth_mm": 0.4113
+   },
+   {
+    "energy_mJ": 350,
+    "depth_mm": 0.43
+   },
+   {
+    "energy_mJ": 375,
+    "depth_mm": 0.4388
+   },
+   {
+    "energy_mJ": 400,
+    "depth_mm": 0.45
+   }
+  ]
+ },
+ "fig7": {
+  "gaussian_temporal": [
+   {
+    "energy_mJ": 50,
+    "depth_mm": 0.0625
+   },
+   {
+    "energy_mJ": 100,
+    "depth_mm": 0.145
+   },
+   {
+    "energy_mJ": 150,
+    "depth_mm": 0.2125
+   },
+   {
+    "energy_mJ": 200,
+    "depth_mm": 0.2475
+   },
+   {
+    "energy_mJ": 250,
+    "depth_mm": 0.2813
+   },
+   {
+    "energy_mJ": 300,
+    "depth_mm": 0.3125
+   },
+   {
+    "energy_mJ": 350,
+    "depth_mm": 0.335
+   },
+   {
+    "energy_mJ": 400,
+    "depth_mm": 0.36
+   }
+  ],
+  "triangular_temporal": [
+   {
+    "energy_mJ": 50,
+    "depth_mm": 0.0613
+   },
+   {
+    "energy_mJ": 100,
+    "depth_mm": 0.18
+   },
+   {
+    "energy_mJ": 150,
+    "depth_mm": 0.2225
+   },
+   {
+    "energy_mJ": 200,
+    "depth_mm": 0.3025
+   },
+   {
+    "energy_mJ": 250,
+    "depth_mm": 0.3475
+   },
+   {
+    "energy_mJ": 300,
+    "depth_mm": 0.3912
+   },
+   {
+    "energy_mJ": 350,
+    "depth_mm": 0.43
+   },
+   {
+    "energy_mJ": 400,
+    "depth_mm": 0.45
+   }
+  ],
+  "tophat_temporal": [
+   {
+    "energy_mJ": 50,
+    "depth_mm": 0.1
+   },
+   {
+    "energy_mJ": 100,
+    "depth_mm": 0.2138
+   },
+   {
+    "energy_mJ": 150,
+    "depth_mm": 0.27
+   },
+   {
+    "energy_mJ": 200,
+    "depth_mm": 0.3262
+   },
+   {
+    "energy_mJ": 250,
+    "depth_mm": 0.3712
+   },
+   {
+    "energy_mJ": 300,
+    "depth_mm": 0.4137
+   },
+   {
+    "energy_mJ": 350,
+    "depth_mm": 0.4412
+   },
+   {
+    "energy_mJ": 400,
+    "depth_mm": 0.4662
+   }
+  ],
+  "note": "Ta = 500 C; markers: circle = Gaussian, square = triangular, x = top-hat temporal profile"
+ }
+}

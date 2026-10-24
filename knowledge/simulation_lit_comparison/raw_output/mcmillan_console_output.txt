@@ -1,0 +1,48 @@
+  triangular dry=0.25 E= 50 mJ ->   180 um (7 s)
+  triangular dry=0.25 E=100 mJ ->   382 um (6 s)
+  triangular dry=0.25 E=150 mJ ->   555 um (9 s)
+  triangular dry=0.25 E=200 mJ ->   705 um (13 s)
+  triangular dry=0.25 E=250 mJ ->   840 um (16 s)
+  triangular dry=0.25 E=300 mJ ->   975 um (19 s)
+  triangular dry=0.25 E=350 mJ ->  1095 um (22 s)
+  triangular dry=0.25 E=400 mJ ->  1200 um (26 s)
+  triangular dry=0.00 E= 50 mJ ->     0 um (3 s)
+  triangular dry=0.00 E=100 mJ ->     0 um (6 s)
+  triangular dry=0.00 E=150 mJ ->     0 um (9 s)
+  triangular dry=0.00 E=200 mJ ->     0 um (12 s)
+  triangular dry=0.00 E=250 mJ ->     0 um (15 s)
+  triangular dry=0.00 E=300 mJ ->     0 um (19 s)
+  triangular dry=0.00 E=350 mJ ->     0 um (22 s)
+  triangular dry=0.00 E=400 mJ ->     0 um (26 s)
+  triangular dry=1.00 E= 50 mJ ->   150 um (3 s)
+  triangular dry=1.00 E=100 mJ ->   315 um (6 s)
+  triangular dry=1.00 E=150 mJ ->   457 um (9 s)
+  triangular dry=1.00 E=200 mJ ->   600 um (12 s)
+  triangular dry=1.00 E=250 mJ ->   742 um (16 s)
+  triangular dry=1.00 E=300 mJ ->   870 um (18 s)
+  triangular dry=1.00 E=350 mJ ->   997 um (21 s)
+  triangular dry=1.00 E=400 mJ ->  1132 um (27 s)
+  tophat     dry=0.25 E= 50 mJ ->   210 um (3 s)
+  tophat     dry=0.25 E=100 mJ ->   412 um (6 s)
+  tophat     dry=0.25 E=150 mJ ->   585 um (10 s)
+  tophat     dry=0.25 E=200 mJ ->   720 um (13 s)
+  tophat     dry=0.25 E=250 mJ ->   840 um (16 s)
+  tophat     dry=0.25 E=300 mJ ->   952 um (19 s)
+  tophat     dry=0.25 E=350 mJ ->  1057 um (21 s)
+  tophat     dry=0.25 E=400 mJ ->  1148 um (23 s)
+M-50-exp       PASS engine=  180 um  ref=  140 um  tol ±45
+MX-50-sim      FAIL engine=  180 um  ref=   61 um  tol ±30
+M-100-exp      FAIL engine=  382 um  ref=  177 um  tol ±38
+MX-100-sim     FAIL engine=  382 um  ref=  180 um  tol ±30
+M-150-exp      FAIL engine=  555 um  ref=  263 um  tol ±51
+MX-150-sim     FAIL engine=  555 um  ref=  222 um  tol ±30
+M-200-exp      FAIL engine=  705 um  ref=  312 um  tol ±88
+MX-200-sim     FAIL engine=  705 um  ref=  302 um  tol ±30
+M-250-exp      FAIL engine=  840 um  ref=  332 um  tol ±59
+MX-250-sim     FAIL engine=  840 um  ref=  348 um  tol ±30
+M-300-exp      FAIL engine=  975 um  ref=  371 um  tol ±65
+MX-300-sim     FAIL engine=  975 um  ref=  391 um  tol ±30
+M-350-exp      FAIL engine= 1095 um  ref=  429 um  tol ±55
+MX-350-sim     FAIL engine= 1095 um  ref=  430 um  tol ±30
+M-400-exp      FAIL engine= 1200 um  ref=  399 um  tol ±77
+MX-400-sim     FAIL engine= 1200 um  ref=  450 um  tol ±30

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>LaserSim: Beetle Laser Ablation</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        :root {
+            --bg: #0d1117; --panel: #161b22; --panel-2: #1c2129; --border: #30363d;
+            --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff; --warn: #f0883e; --ok: #3fb950;
+        }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+
+        header { height: 44px; display: flex; align-items: center; justify-content: space-between;
+            padding: 0 16px; border-bottom: 1px solid var(--border); background: #010409; }
+        .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; }
+        .brand small { color: var(--muted); font-weight: 400; }
+        .pages { display: flex; gap: 4px; background: var(--panel); padding: 3px; border-radius: 6px; border: 1px solid var(--border); }
+        .page-btn { background: none; border: 1px solid transparent; color: var(--muted); padding: 5px 14px;
+            border-radius: 4px; cursor: pointer; font-size: 12.5px; font-weight: 500; }
+        .page-btn.active { background: rgba(88,166,255,0.15); border-color: rgba(88,166,255,0.45); color: var(--accent); font-weight: 600; }
+        .status { color: var(--muted); font-size: 12px; min-width: 220px; text-align: right; }
+
+        main { height: calc(100% - 44px); }
+        .page { display: none; height: 100%; }
+        .page.active { display: flex; }
+
+        /* ---------- Page 1: setup ---------- */
+        #setupPage { gap: 0; }
+        .side { width: 320px; flex: none; padding: 16px; border-right: 1px solid var(--border); overflow-y: auto; background: var(--panel); }
+        .content { flex: 1; padding: 16px 20px; overflow: auto; min-width: 0; }
+        h2 { font-size: 15px; margin: 0 0 4px; }
+        .hint { color: var(--muted); font-size: 12px; margin: 0 0 14px; line-height: 1.45; }
+        .field { margin-bottom: 12px; }
+        .field label { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+        .field label b { color: var(--text); font-weight: 600; }
+        input[type=number], select { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border);
+            border-radius: 5px; padding: 6px 8px; font-size: 13px; }
+        input[type=number]:focus, select:focus { outline: none; border-color: var(--accent); }
+        input[type=range] { width: 100%; accent-color: var(--accent); }
+        .chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+        .chip { border: 1px solid var(--border); background: var(--bg); color: var(--muted); border-radius: 10px;
+            padding: 2px 8px; font-size: 11.5px; cursor: pointer; }
+        .chip.on { border-color: var(--accent); color: var(--accent); }
+        .toggle { display: flex; align-items: center; gap: 8px; font-size: 12.5px; cursor: pointer; }
+        .est { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+        .run-btn { width: 100%; padding: 10px; margin-top: 8px; border: none; border-radius: 6px; cursor: pointer;
+            background: #238636; color: #fff; font-weight: 700; font-size: 14px; }
+        .run-btn:hover { background: #2ea043; }
+        .run-btn:disabled { background: #30363d; color: var(--muted); cursor: not-allowed; }
+
+        .stack-row { display: flex; gap: 20px; align-items: flex-start; }
+        .stack-vis { width: 150px; flex: none; }
+        .stack-vis .bar { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+        .stack-vis .seg { display: flex; align-items: center; justify-content: center; font-size: 10px; color: #0d1117;
+            font-weight: 600; overflow: hidden; white-space: nowrap; cursor: pointer; }
+        .stack-vis .seg.sel { outline: 2px solid var(--accent); outline-offset: -2px; }
+        .stack-vis .cap { color: var(--muted); font-size: 11px; margin-top: 6px; text-align: center; }
+        table.layers { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+        table.layers th { text-align: right; color: var(--muted); font-weight: 500; font-size: 11.5px; padding: 6px 6px;
+            border-bottom: 1px solid var(--border); white-space: nowrap; position: sticky; top: 0; background: var(--bg); }
+        table.layers th.l, table.layers td.l { text-align: left; }
+        table.layers td { padding: 4px 6px; border-bottom: 1px solid #21262d; text-align: right; white-space: nowrap; }
+        table.layers tr.sel td { background: rgba(88,166,255,0.06); }
+        table.layers td input[type=number] { width: 78px; text-align: right; padding: 3px 6px; }
+        table.layers td input.name { width: 170px; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 5px; padding: 3px 6px; }
+        table.layers td select { width: 118px; padding: 3px 6px; }
+        .calc { color: #a5d6ff; font-variant-numeric: tabular-nums; }
+        .grp { border-left: 1px solid var(--border); }
+        .icon-btn { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 4px; cursor: pointer;
+            padding: 1px 6px; font-size: 11px; margin-left: 2px; }
+        .icon-btn:hover { color: var(--text); border-color: var(--muted); }
+        .comp-bar { display: inline-flex; width: 110px; height: 10px; border-radius: 3px; overflow: hidden; vertical-align: middle; border: 1px solid var(--border); }
+        .comp-edit td { background: var(--panel-2); }
+        .comp-grid { display: flex; flex-wrap: wrap; gap: 10px; padding: 6px 4px; justify-content: flex-start; }
+        .comp-grid label { display: flex; flex-direction: column; gap: 3px; font-size: 11px; color: var(--muted); text-align: left; }
+        .comp-grid input { width: 74px !important; }
+        .legend-row { display: flex; gap: 12px; flex-wrap: wrap; color: var(--muted); font-size: 11.5px; margin: 10px 0 0; }
+        .legend-row span::before { content: ''; display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; background: var(--c); }
+        .table-actions { display: flex; gap: 8px; margin: 10px 0 0; }
+        .table-actions button { background: var(--panel); color: var(--text); border: 1px solid var(--border); border-radius: 5px; padding: 5px 10px; cursor: pointer; font-size: 12px; }
+
+        /* ---------- Page 2: simulation ---------- */
+        #simPage { flex-direction: column; }
+        .sim-bar { display: flex; align-items: center; gap: 12px; padding: 8px 16px; border-bottom: 1px solid var(--border); background: var(--panel); flex: none; }
+        .sim-title { color: var(--accent); font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
+        .sim-bar button { background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 5px; padding: 5px 12px; cursor: pointer; font-size: 12.5px; }
+        .sim-bar button:hover { border-color: var(--muted); }
+        .sim-bar button.stop { color: #ff7b72; border-color: #8b2b2b; }
+        .progress { width: 160px; height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; border: 1px solid var(--border); }
+        .progress div { height: 100%; width: 0; background: var(--accent); transition: width 0.2s; }
+        .scrub { display: flex; align-items: center; gap: 10px; padding: 6px 16px; border-bottom: 1px solid var(--border); flex: none; }
+        .scrub input { flex: 1; }
+        .scrub span { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; min-width: 90px; }
+        .grid4 { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6px; padding: 6px; min-height: 0; }
+        .pane { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; min-height: 0; position: relative; }
+        .pane > .plot { position: absolute; inset: 0; }
+        .phase-legend { position: absolute; left: 0; right: 0; bottom: 4px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+            font-size: 11px; color: var(--text); pointer-events: none; z-index: 5; }
+        .phase-legend span::before { content: ''; display: inline-block; width: 10px; height: 10px; margin-right: 4px; vertical-align: -1px; background: var(--c); border: 1px solid #64748b; }
+        .empty { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 14px; z-index: 6; pointer-events: none; }
+    </style>
+</head>
+<body>
+<header>
+    <div class="brand">⚡ LaserSim <small>coupled 3D light, heat and ablation in a beetle</small></div>
+    <div class="pages">
+        <button id="btnSetup" class="page-btn active" onclick="showPage('setup')">1. Beetle &amp; Laser</button>
+        <button id="btnSim" class="page-btn" onclick="showPage('sim')">2. Simulation</button>
+    </div>
+    <div class="status" id="headerStatus">Ready</div>
+</header>
+
+<main>
+    <!-- ================= PAGE 1: BEETLE & LASER ================= -->
+    <section class="page active" id="setupPage">
+        <aside class="side">
+            <h2>Laser</h2>
+            <p class="hint">The beam enters the back at an angle and is aimed to cross the centre of the body half-way down.</p>
+
+            <div class="field">
+                <label>Wavelength <b><span id="wlVal"></span> nm</b></label>
+                <input type="number" id="wavelength" min="200" max="11000" step="1">
+                <div class="chips" id="wlChips"></div>
+            </div>
+            <div class="field">
+                <label>Power <b><span id="powerVal"></span> W</b></label>
+                <input type="range" id="power" min="1" max="160" step="1">
+            </div>
+            <div class="field">
+                <label>Spot diameter <b><span id="spotVal"></span> mm</b></label>
+                <input type="range" id="spot" min="0.1" max="1.5" step="0.05">
+            </div>
+            <div class="field">
+                <label>Incidence angle <b><span id="thetaVal"></span>°</b></label>
+                <input type="range" id="theta" min="0" max="45" step="0.1">
+            </div>
+            <div class="field">
+                <label>Pulse length <b><span id="pulseVal"></span> ms</b></label>
+                <input type="range" id="pulse" min="10" max="1000" step="10">
+            </div>
+            <div class="field">
+                <label>Simulated time <b><span id="durVal"></span> ms</b></label>
+                <input type="range" id="duration" min="20" max="2000" step="10">
+                <div class="est">Laser on for the pulse, then the beetle cools for the rest.</div>
+            </div>
+            <div class="field">
+                <label class="toggle" style="justify-content:flex-start"><input type="checkbox" id="plume"> Smoke plume shields the beam</label>
+            </div>
+            <div class="field">
+                <label>Resolution</label>
+                <select id="resolution"></select>
+                <div class="est" id="estimate"></div>
+            </div>
+            <button class="run-btn" id="btnRun" onclick="startRun()">Run simulation ▸</button>
+        </aside>
+
+        <div class="content">
+            <h2>Beetle body</h2>
+            <p class="hint">Layers from the back (top) to the belly (bottom). Edit thickness, tissue type, composition and thermal properties.
+                Optical properties are computed from the composition at the selected wavelength.</p>
+            <div class="stack-row">
+                <div class="stack-vis">
+                    <div class="bar" id="stackBar"></div>
+                    <div class="cap" id="stackCap"></div>
+                </div>
+                <div style="flex:1; min-width:0; overflow-x:auto;">
+                    <table class="layers">
+                        <thead>
+                        <tr>
+                            <th class="l">#</th>
+                            <th class="l">Layer</th>
+                            <th class="l">Type</th>
+                            <th>Thickness<br>µm</th>
+                            <th class="l">Composition</th>
+                            <th class="grp">k<br>W/(m·K)</th>
+                            <th>ρc<sub>p</sub><br>J/(cm³·K)</th>
+                            <th class="grp">µ<sub>a</sub><br>mm⁻¹</th>
+                            <th>µ<sub>s</sub><br>mm⁻¹</th>
+                            <th>g</th>
+                            <th>n</th>
+                            <th>Light depth<br>mm</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody id="layerBody"></tbody>
+                    </table>
+                    <div class="legend-row" id="compLegend"></div>
+                    <div class="table-actions">
+                        <button onclick="addLayer()">+ Add layer</button>
+                        <button onclick="resetLayers()">Reset to default beetle</button>
+                    </div>
+                    <p class="hint" style="margin-top:14px">
+                        <b>Cuticle</b> chars and is removed at 350 °C. <b>Soft tissue</b> holds at 100 °C while its water boils off, then is removed.
+                        <b>Air</b> is an insulating gap. Light depth is the diffusion penetration depth 1/√(3µ<sub>a</sub>(µ<sub>a</sub>+µ<sub>s</sub>')).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= PAGE 2: SIMULATION ================= -->
+    <section class="page" id="simPage">
+        <div class="sim-bar">
+            <div class="sim-title" id="simTitle">No simulation yet. Set up the beetle and laser, then press Run.</div>
+            <div class="progress"><div id="progressBar"></div></div>
+            <span class="status" id="simStatus" style="min-width:150px"></span>
+            <button id="btnStop" class="stop" onclick="stopRun()" disabled>Stop</button>
+            <button onclick="showPage('setup')">Edit setup</button>
+        </div>
+        <div class="scrub">
+            <button id="btnPlay" onclick="togglePlay()" style="background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:5px;padding:4px 12px;cursor:pointer">▶ Play</button>
+            <input type="range" id="scrub" min="0" max="0" value="0" oninput="onScrub()">
+            <span id="scrubLabel">t = 0 ms</span>
+            <label class="toggle"><input type="checkbox" id="followLive" checked> Follow live</label>
+        </div>
+        <div class="grid4">
+            <div class="pane"><div class="plot" id="paneQ"></div></div>
+            <div class="pane"><div class="plot" id="paneT"></div></div>
+            <div class="pane"><div class="plot" id="panePlume"></div></div>
+            <div class="pane"><div class="plot" id="panePhase"></div>
+                <div class="phase-legend">
+                    <span style="--c:#1e293b">Intact tissue</span>
+                    <span style="--c:#d97706">Charred cuticle</span>
+                    <span style="--c:#06b6d4">Boiling (≥ 100 °C)</span>
+                    <span style="--c:#000000">Ablated / air</span>
+                </div>
+            </div>
+            <div class="empty" id="emptyMsg" style="display:none"></div>
+        </div>
+    </section>
+</main>
+
+<script>
+// ------------------------------------------------------------------ state
+const WL_PRESETS = [320, 450, 532, 1064, 1470, 1940, 10600];
+const COMPONENTS = [
+    ['water', '#3b82f6'], ['protein', '#f59e0b'], ['chitin', '#a3a3a3'], ['melanin', '#78350f'],
+    ['lipid', '#facc15'], ['ommochrome', '#dc2626'], ['air', '#e2e8f0'],
+];
+const KIND_COLORS = { dry: '#b45309', boils: '#38bdf8', air: '#e2e8f0' };
+const KIND_LABELS = { dry: 'Cuticle', boils: 'Soft tissue', air: 'Air' };
+let defaults = null, layers = [], optics = [], expanded = -1, evalTimer = null;
+
+async function init() {
+    defaults = await (await fetch('/api/setup')).json();
+    const res = document.getElementById('resolution');
+    for (const [k, label] of Object.entries(defaults.resolutions)) {
+        const o = document.createElement('option'); o.value = k; o.textContent = label; res.appendChild(o);
+    }
+    const chips = document.getElementById('wlChips');
+    for (const wl of WL_PRESETS) {
+        const c = document.createElement('span'); c.className = 'chip'; c.textContent = wl; c.dataset.wl = wl;
+        c.onclick = () => { document.getElementById('wavelength').value = wl; onLaserChange(); };
+        chips.appendChild(c);
+    }
+    document.getElementById('compLegend').innerHTML = COMPONENTS.map(([n, c]) => `<span style="--c:${c}">${n}</span>`).join('');
+    applyLaser(defaults.laser);
+    resetLayers();
+    for (const id of ['wavelength', 'power', 'spot', 'theta', 'pulse', 'duration', 'plume', 'resolution'])
+        document.getElementById(id).addEventListener('input', onLaserChange);
+    initPanes();
+}
+
+function applyLaser(l) {
+    const set = (id, v) => document.getElementById(id).value = v;
+    set('wavelength', l.wavelength_nm); set('power', l.power_w); set('spot', l.spot_dia_mm);
+    set('theta', Number(l.theta_deg).toFixed(1)); set('pulse', l.pulse_ms); set('duration', l.duration_ms);
+    document.getElementById('plume').checked = l.plume; set('resolution', l.resolution);
+    onLaserChange();
+}
+
+function readLaser() {
+    const v = id => parseFloat(document.getElementById(id).value);
+    return {
+        wavelength_nm: v('wavelength'), power_w: v('power'), spot_dia_mm: v('spot'), theta_deg: v('theta'),
+        pulse_ms: Math.min(v('pulse'), v('duration')), duration_ms: v('duration'),
+        plume: document.getElementById('plume').checked, resolution: document.getElementById('resolution').value,
+    };
+}
+
+function onLaserChange() {
+    const l = readLaser();
+    document.getElementById('wlVal').textContent = l.wavelength_nm;
+    document.getElementById('powerVal').textContent = l.power_w;
+    document.getElementById('spotVal').textContent = l.spot_dia_mm.toFixed(2);
+    document.getElementById('thetaVal').textContent = l.theta_deg.toFixed(1);
+    document.getElementById('pulseVal').textContent = l.pulse_ms;
+    document.getElementById('durVal').textContent = l.duration_ms;
+    document.querySelectorAll('#wlChips .chip').forEach(c => c.classList.toggle('on', Number(c.dataset.wl) === l.wavelength_nm));
+    // Measured on an Apple M-series GPU: seconds per simulated ms with the laser on; cooling is ~3x cheaper
+    const rate = { preview: 0.08, standard: 0.13, full: 0.37 }[l.resolution] || 0.37;
+    const est = rate * l.pulse_ms + rate / 3 * Math.max(0, l.duration_ms - l.pulse_ms);
+    document.getElementById('estimate').textContent = `Roughly ${est < 90 ? Math.round(est) + ' s' : (est / 60).toFixed(1) + ' min'} on an Apple Silicon GPU.`;
+    scheduleEvaluate();
+}
+
+// ------------------------------------------------------------------ layers
+function resetLayers() {
+    layers = defaults.layers.map(l => JSON.parse(JSON.stringify(l)));
+    expanded = -1;
+    renderLayers(); scheduleEvaluate();
+}
+
+function addLayer() {
+    const at = expanded >= 0 ? expanded + 1 : layers.length;
+    layers.splice(at, 0, { name: 'custom_layer', label: 'New layer', thickness_um: 100, kind: 'boils',
+        composition: { water: 0.7, protein: 0.3 }, k: 0.5e-3, rho_cp: 3.6e-3 });
+    expanded = at; renderLayers(); scheduleEvaluate();
+}
+
+function moveLayer(i, d) {
+    const j = i + d; if (j < 0 || j >= layers.length) return;
+    [layers[i], layers[j]] = [layers[j], layers[i]];
+    if (expanded === i) expanded = j; else if (expanded === j) expanded = i;
+    renderLayers(); scheduleEvaluate();
+}
+
+function removeLayer(i) {
+    if (layers.length <= 1) return;
+    layers.splice(i, 1); if (expanded >= layers.length) expanded = -1;
+    renderLayers(); scheduleEvaluate();
+}
+
+function setField(i, key, value) {
+    const l = layers[i];
+    if (key === 'k') l.k = value / 1000;                // W/(m K) -> W/(mm K)
+    else if (key === 'rho_cp') l.rho_cp = value / 1000; // J/(cm^3 K) -> J/(mm^3 K)
+    else if (key === 'kind') {
+        l.kind = value;
+        if (value === 'air') { l.composition = { air: 1 }; l.k = 0.026e-3; l.rho_cp = 1.206e-6; }
+        renderLayers();
+    } else l[key] = value;
+    renderStack(); scheduleEvaluate();
+}
+
+function setComp(i, comp, value) {
+    const c = layers[i].composition;
+    if (value > 0) c[comp] = value; else delete c[comp];
+    renderCompBar(i); scheduleEvaluate();
+}
+
+function compBarHtml(comp) {
+    const tot = Object.values(comp).reduce((a, b) => a + b, 0) || 1;
+    return COMPONENTS.filter(([n]) => comp[n] > 0)
+        .map(([n, c]) => `<span title="${n} ${(100 * comp[n] / tot).toFixed(0)}%" style="width:${100 * comp[n] / tot}%;background:${c}"></span>`).join('');
+}
+function renderCompBar(i) { const el = document.getElementById('cb' + i); if (el) el.innerHTML = compBarHtml(layers[i].composition); }
+
+function renderLayers() {
+    const body = document.getElementById('layerBody');
+    let html = '';
+    layers.forEach((l, i) => {
+        const o = optics[i] || {};
+        const fmt = (v, d) => (v === undefined || v === null) ? '…' : Number(v).toFixed(d);
+        html += `<tr class="${expanded === i ? 'sel' : ''}">
+            <td class="l">${i + 1}</td>
+            <td class="l"><input class="name" value="${l.label || l.name}" oninput="setField(${i},'label',this.value)"></td>
+            <td class="l"><select onchange="setField(${i},'kind',this.value)">
+                ${Object.entries(KIND_LABELS).map(([k, t]) => `<option value="${k}" ${l.kind === k ? 'selected' : ''}>${t}</option>`).join('')}
+            </select></td>
+            <td><input type="number" min="1" step="5" value="${l.thickness_um}" oninput="setField(${i},'thickness_um',parseFloat(this.value)||1)"></td>
+            <td class="l"><span class="comp-bar" id="cb${i}">${compBarHtml(l.composition)}</span>
+                <button class="icon-btn" onclick="toggleComp(${i})">${expanded === i ? 'done' : 'edit'}</button></td>
+            <td class="grp"><input type="number" step="0.01" value="${+(l.k * 1000).toFixed(4)}" ${l.kind === 'air' ? 'disabled' : ''} oninput="setField(${i},'k',parseFloat(this.value)||0)"></td>
+            <td><input type="number" step="0.01" value="${+(l.rho_cp * 1000).toFixed(4)}" ${l.kind === 'air' ? 'disabled' : ''} oninput="setField(${i},'rho_cp',parseFloat(this.value)||0)"></td>
+            <td class="grp calc">${fmt(o.mu_a, 3)}</td><td class="calc">${fmt(o.mu_s, 2)}</td>
+            <td class="calc">${fmt(o.g, 2)}</td><td class="calc">${fmt(o.n, 3)}</td>
+            <td class="calc">${o.penetration_depth_mm >= 999 ? '∞' : fmt(o.penetration_depth_mm, 3)}</td>
+            <td><button class="icon-btn" onclick="moveLayer(${i},-1)">↑</button><button class="icon-btn" onclick="moveLayer(${i},1)">↓</button><button class="icon-btn" onclick="removeLayer(${i})">✕</button></td>
+        </tr>`;
+        if (expanded === i) {
+            html += `<tr class="comp-edit"><td></td><td colspan="12"><div class="comp-grid">
+                ${COMPONENTS.map(([n]) => `<label>${n}<input type="number" min="0" max="1" step="0.01" value="${l.composition[n] || 0}" oninput="setComp(${i},'${n}',parseFloat(this.value)||0)"></label>`).join('')}
+                <span class="hint" style="align-self:flex-end;margin:0 0 4px">Volume fractions; they are normalised to 1.</span>
+            </div></td></tr>`;
+        }
+    });
+    body.innerHTML = html;
+    renderStack();
+}
+
+function toggleComp(i) { expanded = expanded === i ? -1 : i; renderLayers(); }
+
+function renderStack() {
+    const total = layers.reduce((a, l) => a + (l.thickness_um || 0), 0) || 1;
+    const H = 460;
+    document.getElementById('stackBar').innerHTML = layers.map((l, i) => {
+        const h = Math.max(3, H * l.thickness_um / total);
+        return `<div class="seg ${expanded === i ? 'sel' : ''}" title="${l.label}: ${l.thickness_um} µm" onclick="toggleComp(${i})"
+            style="height:${h}px;background:${KIND_COLORS[l.kind] || '#888'}">${h > 14 ? (l.label || l.name) : ''}</div>`;
+    }).join('');
+    document.getElementById('stackCap').textContent = `${(total / 1000).toFixed(2)} mm total`;
+}
+
+function scheduleEvaluate() {
+    clearTimeout(evalTimer);
+    evalTimer = setTimeout(async () => {
+        const r = await fetch('/api/layers/evaluate', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ layers, wavelength_nm: readLaser().wavelength_nm }) });
+        optics = (await r.json()).layers || [];
+        const keep = document.activeElement && document.activeElement.closest('#layerBody') ? null : true;
+        if (keep) renderLayers(); else updateOpticsCells();
+    }, 200);
+}
+
+function updateOpticsCells() {
+    // Refresh computed cells without re-rendering inputs the user is typing into
+    const rows = [...document.querySelectorAll('#layerBody tr:not(.comp-edit)')];
+    rows.forEach((tr, i) => {
+        const o = optics[i]; if (!o) return;
+        const c = tr.querySelectorAll('td.calc');
+        c[0].textContent = o.mu_a.toFixed(3); c[1].textContent = o.mu_s.toFixed(2); c[2].textContent = o.g.toFixed(2);
+        c[3].textContent = o.n.toFixed(3); c[4].textContent = o.penetration_depth_mm >= 999 ? '∞' : o.penetration_depth_mm.toFixed(3);
+    });
+}
+
+// ------------------------------------------------------------------ pages
+function showPage(p) {
+    document.getElementById('setupPage').classList.toggle('active', p === 'setup');
+    document.getElementById('simPage').classList.toggle('active', p === 'sim');
+    document.getElementById('btnSetup').classList.toggle('active', p === 'setup');
+    document.getElementById('btnSim').classList.toggle('active', p === 'sim');
+    if (p === 'sim') setTimeout(() => ['paneQ', 'paneT', 'panePlume', 'panePhase'].forEach(id => Plotly.Plots.resize(id)), 30);
+}
+
+// ------------------------------------------------------------------ simulation
+let es = null, setup = null, frames = [], shown = -1, playTimer = null;
+const DARK = { paper_bgcolor: '#161b22', plot_bgcolor: '#000000', font: { color: '#c9d1d9', size: 11 } };
+const PHASE_SCALE = [[0, '#1e293b'], [0.25, '#1e293b'], [0.25, '#d97706'], [0.5, '#d97706'], [0.5, '#06b6d4'], [0.75, '#06b6d4'], [0.75, '#000000'], [1, '#000000']];
+const PLUME_GAMMA = 0.45;
+// matplotlib colormaps (Plotly has no plasma / inferno / magma built in)
+const PLASMA = [[0.0, "#0d0887"], [0.0667, "#330597"], [0.1333, "#5002a2"], [0.2, "#6a00a8"], [0.2667, "#8405a7"], [0.3333, "#9c179e"], [0.4, "#b12a90"], [0.4667, "#c33d80"], [0.5333, "#d35171"], [0.6, "#e16462"], [0.6667, "#ed7953"], [0.7333, "#f68f44"], [0.8, "#fca636"], [0.8667, "#fec029"], [0.9333, "#f9dc24"], [1.0, "#f0f921"]];
+const INFERNO = [[0.0, "#000004"], [0.0667, "#0c0826"], [0.1333, "#240c4f"], [0.2, "#420a68"], [0.2667, "#5d126e"], [0.3333, "#781c6d"], [0.4, "#932667"], [0.4667, "#ae305c"], [0.5333, "#c73e4c"], [0.6, "#dd513a"], [0.6667, "#ed6925"], [0.7333, "#f8850f"], [0.8, "#fca50a"], [0.8667, "#fac62d"], [0.9333, "#f2e661"], [1.0, "#fcffa4"]];
+const MAGMA = [[0.0, "#000004"], [0.0667, "#0b0924"], [0.1333, "#20114b"], [0.2, "#3b0f70"], [0.2667, "#57157e"], [0.3333, "#721f81"], [0.4, "#8c2981"], [0.4667, "#a8327d"], [0.5333, "#c43c75"], [0.6, "#de4968"], [0.6667, "#f1605d"], [0.7333, "#fa7f5e"], [0.8, "#fe9f6d"], [0.8667, "#febf84"], [0.9333, "#fddea0"], [1.0, "#fcfdbf"]];
+
+function b64(s, Type) {
+    const bin = atob(s), buf = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+    return new Type(buf.buffer);
+}
+function to2d(flat, nz, nx, f) {
+    const out = new Array(nz);
+    for (let k = 0; k < nz; k++) { const row = new Array(nx); for (let i = 0; i < nx; i++) row[i] = f(flat[k * nx + i]); out[k] = row; }
+    return out;
+}
+
+function baseLayout(title, extra) {
+    const lines = [];
+    if (setup) {
+        const L = setup.lines_um;
+        lines.push({ y: L.surface, color: '#38bdf8', dash: 'solid' });
+        if (L.air_gap_start !== null) lines.push({ y: L.air_gap_start, color: '#ffffff', dash: 'dash' });
+        if (L.air_gap_end !== null) lines.push({ y: L.air_gap_end, color: '#ffffff', dash: 'dash' });
+        lines.push({ y: L.ventral_shell, color: '#ffffff', dash: 'dot' });
+    }
+    return Object.assign({
+        ...DARK, margin: { l: 58, r: 10, t: 30, b: 38 },
+        title: { text: title, font: { size: 12, color: '#f0f6fc' }, x: 0.01, xanchor: 'left', y: 0.985 },
+        xaxis: { title: { text: 'Radial x [mm]', standoff: 4 }, range: [-1.5, 1.5], gridcolor: '#21262d', zeroline: false, domain: [0, 0.88] },
+        yaxis: { title: { text: 'Depth z [µm]', standoff: 2 }, autorange: 'reversed', gridcolor: '#21262d', zeroline: false },
+        shapes: lines.map(s => ({ type: 'line', xref: 'paper', x0: 0, x1: 0.88, yref: 'y', y0: s.y, y1: s.y,
+            line: { color: s.color, width: 1, dash: s.dash }, opacity: 0.6 })),
+        showlegend: false,
+    }, extra || {});
+}
+
+function insetAxes(title, yrange, tmax) {
+    return {
+        xaxis2: { domain: [0.05, 0.36], anchor: 'y2', range: [0, tmax], tickfont: { size: 8, color: '#8b949e' }, gridcolor: '#21262d', zeroline: false },
+        yaxis2: { domain: [0.07, 0.34], anchor: 'x2', range: yrange, tickfont: { size: 8, color: '#8b949e' }, gridcolor: '#21262d', zeroline: false },
+        annotations: [{ text: title, xref: 'paper', yref: 'paper', x: 0.205, y: 0.36, showarrow: false, font: { size: 9.5, color: '#f0f6fc' }, xanchor: 'center', yanchor: 'bottom' }],
+        images: [],
+    };
+}
+
+function initPanes() {
+    const cfg = { displayModeBar: false, responsive: true };
+    for (const id of ['paneQ', 'paneT', 'panePlume', 'panePhase'])
+        Plotly.newPlot(id, [], baseLayout(''), cfg);
+}
+
+function startRun() {
+    if (es) stopRun();
+    const config = { layers, laser: readLaser() };
+    frames = []; shown = -1; setup = null;
+    document.getElementById('scrub').max = 0;
+    document.getElementById('progressBar').style.width = '0%';
+    document.getElementById('btnStop').disabled = false;
+    document.getElementById('btnRun').disabled = true;
+    setStatus('Building beetle…');
+    showPage('sim');
+    es = new EventSource('/api/run?config=' + encodeURIComponent(JSON.stringify(config)));
+    es.onmessage = ev => {
+        const msg = JSON.parse(ev.data);
+        if (msg.event === 'setup') onSetup(msg.data);
+        else if (msg.event === 'frame') onFrame(msg.data);
+        else if (msg.event === 'done') finish(`Done in ${msg.data.elapsed_s.toFixed(0)} s`);
+        else if (msg.event === 'error') finish('Error: ' + msg.data.message);
+    };
+    es.onerror = () => { if (es) finish('Connection closed'); };
+}
+
+function stopRun() { if (es) { es.close(); es = null; fetch('/api/stop', { method: 'POST' }); } finish('Stopped'); }
+
+function finish(text) {
+    if (es) { es.close(); es = null; }
+    document.getElementById('btnStop').disabled = true;
+    document.getElementById('btnRun').disabled = false;
+    setStatus(text);
+}
+
+function setStatus(t) { document.getElementById('simStatus').textContent = t; document.getElementById('headerStatus').textContent = t; }
+
+function onSetup(d) {
+    setup = d;
+    const l = d.laser;
+    document.getElementById('simTitle').textContent =
+        `λ = ${l.wavelength_nm} nm | P = ${l.power_w} W | spot ${l.spot_dia_mm} mm | θ = ${l.theta_deg.toFixed(1)}° | ` +
+        `${l.pulse_ms} ms pulse, ${l.duration_ms} ms total | plume ${l.plume ? 'on' : 'off'} | grid ${d.grid} (${d.voxel_um} µm), ${d.photons.toLocaleString()} photons/ms`;
+    setStatus('Running…');
+}
+
+function onFrame(d) {
+    const nx = setup.nx, nz = setup.nz;
+    const Q = b64(d.Q, Float32Array), T = b64(d.T, Float32Array), P = b64(d.plume, Float32Array), Ph = b64(d.phase, Uint8Array);
+    d.Qz = to2d(Q, nz, nx, v => Math.log10(Math.max(v, 1e-1)));
+    d.Tz = to2d(T, nz, nx, v => v);
+    d.Phz = to2d(Ph, nz, nx, v => v);
+    d.Tz = d.Tz.map((row, k) => row.map((v, i) => d.Phz[k][i] === 3 ? null : v));
+    let pmax = 0; for (const v of P) if (v > pmax) pmax = v;
+    d.pmax = pmax;
+    d.Pz = to2d(P, nz, nx, v => v);
+    delete d.Q; delete d.T; delete d.plume; delete d.phase;
+    frames.push(d);
+    document.getElementById('progressBar').style.width = (100 * d.progress) + '%';
+    setStatus(`${Math.round(100 * d.progress)}% · ${d.eta_s > 0 ? Math.round(d.eta_s) + ' s left' : 'finishing'}`);
+    const sc = document.getElementById('scrub');
+    sc.max = frames.length - 1;
+    if (document.getElementById('followLive').checked && !playTimer) { sc.value = frames.length - 1; draw(frames.length - 1); }
+}
+
+function onScrub() {
+    document.getElementById('followLive').checked = false;
+    draw(parseInt(document.getElementById('scrub').value));
+}
+
+function togglePlay() {
+    const btn = document.getElementById('btnPlay');
+    if (playTimer) { clearInterval(playTimer); playTimer = null; btn.textContent = '▶ Play'; return; }
+    if (!frames.length) return;
+    document.getElementById('followLive').checked = false;
+    let i = shown >= frames.length - 1 ? 0 : shown + 1;
+    btn.textContent = '❚❚ Pause';
+    playTimer = setInterval(() => {
+        if (i >= frames.length) { clearInterval(playTimer); playTimer = null; btn.textContent = '▶ Play'; return; }
+        document.getElementById('scrub').value = i; draw(i); i++;
+    }, 70);
+}
+
+function draw(idx) {
+    const d = frames[idx]; if (!d || !setup) return;
+    shown = idx;
+    const x = setup.x_mm, z = setup.z_um;
+    const hist = frames.slice(0, idx + 1), th = hist.map(f => f.t_ms);
+    const tmax = Math.max(300, setup.laser.duration_ms);
+    const e = d.energy_j;
+    document.getElementById('scrubLabel').textContent = `t = ${d.t_ms.toFixed(0)} ms`;
+
+    // 1) Absorbed power density (log scale)
+    Plotly.react('paneQ', [{
+        type: 'heatmap', x, y: z, z: d.Qz, zmin: -1, zmax: 4, colorscale: PLASMA, zsmooth: false,
+        colorbar: { title: { text: 'Q [W/mm³]', side: 'right' }, tickvals: [-1, 0, 1, 2, 3, 4],
+            ticktext: ['10⁻¹', '10⁰', '10¹', '10²', '10³', '10⁴'], thickness: 12, len: 0.95, x: 0.9 },
+        hovertemplate: 'x %{x:.2f} mm<br>z %{y:.0f} µm<br>log₁₀Q %{z:.2f}<extra></extra>',
+    }], baseLayout(`1) Absorbed power Q(x,z) | t = ${d.t_ms.toFixed(1)} ms | Laser ${d.laser_on ? 'ON' : 'OFF'} | ` +
+        `Absorbed ${e.absorbed.toFixed(2)} J · Reflected ${e.reflected.toFixed(2)} J · Transmitted ${e.transmitted.toFixed(2)} J`));
+
+    // 2) Temperature with boiling / ablation isotherms and the core / ventral inset
+    const ins = insetAxes('Core & ventral T [°C]', [15, 365], tmax);
+    Object.assign(ins, { showlegend: true, legend: { x: 0.37, y: 0.07, xanchor: 'left', yanchor: 'bottom', bgcolor: 'rgba(0,0,0,0.75)',
+        bordercolor: '#30363d', borderwidth: 1, font: { size: 9, color: '#c9d1d9' }, itemwidth: 20 } });
+    Plotly.react('paneT', [
+        { type: 'heatmap', x, y: z, z: d.Tz, zmin: 20, zmax: 350, colorscale: INFERNO, zsmooth: false,
+          colorbar: { title: { text: 'T [°C]', side: 'right' }, thickness: 12, len: 0.95, x: 0.9 }, showlegend: false,
+          hovertemplate: 'x %{x:.2f} mm<br>z %{y:.0f} µm<br>%{z:.1f} °C<extra></extra>' },
+        { type: 'contour', x, y: z, z: d.Tz, showscale: false, showlegend: false, hoverinfo: 'skip', contours: { coloring: 'none', start: 99.5, end: 99.5, size: 1 },
+          line: { color: '#00f0ff', width: 1.3, dash: 'dash' } },
+        { type: 'contour', x, y: z, z: d.Tz, showscale: false, showlegend: false, hoverinfo: 'skip', contours: { coloring: 'none', start: 345, end: 345, size: 1 },
+          line: { color: '#ffffff', width: 1.3 } },
+        { x: th, y: hist.map(f => f.core_peak), xaxis: 'x2', yaxis: 'y2', mode: 'lines', line: { color: '#22d3ee', width: 1.4, dash: 'dash' }, name: 'Core peak' },
+        { x: th, y: hist.map(f => f.core_mean), xaxis: 'x2', yaxis: 'y2', mode: 'lines', line: { color: '#22d3ee', width: 1.4 }, name: 'Core mean' },
+        { x: th, y: hist.map(f => f.ventral_peak), xaxis: 'x2', yaxis: 'y2', mode: 'lines', line: { color: '#f472b6', width: 1.4, dash: 'dash' }, name: 'Ventral peak' },
+        { x: th, y: hist.map(f => f.ventral_mean), xaxis: 'x2', yaxis: 'y2', mode: 'lines', line: { color: '#f472b6', width: 1.4 }, name: 'Ventral mean' },
+    ], baseLayout(`2) Temperature T(x,z) | Core: peak ${d.core_peak.toFixed(1)} °C (mean ${d.core_mean.toFixed(1)}) | ` +
+        `Ventral: peak ${d.ventral_peak.toFixed(1)} °C (mean ${d.ventral_mean.toFixed(1)})`, ins));
+
+    // 3) Smoke plume absorption (gamma-scaled colour) with the beam transmission inset
+    const pmax = Math.max(0.1, ...frames.map(f => f.pmax));
+    const pz = d.Pz.map(row => row.map(v => Math.pow(Math.max(v, 0) / pmax, PLUME_GAMMA)));
+    const ticks = [0, 0.01, 0.05, 0.1, 0.25, 0.5, 1].map(f => f * pmax).filter(v => v <= pmax);
+    const tr = hist.map(f => f.transmission_pct);
+    const ins3 = insetAxes('Beam transmission [%]', [Math.min(50, Math.min(...tr) - 5), 105], tmax);
+    Plotly.react('panePlume', [
+        { type: 'heatmap', x, y: z, z: pz, zmin: 0, zmax: 1, colorscale: MAGMA, zsmooth: false,
+          colorbar: { title: { text: 'µ<sub>plume</sub> [mm⁻¹]', side: 'right' }, tickvals: ticks.map(v => Math.pow(v / pmax, PLUME_GAMMA)),
+              ticktext: ticks.map(v => v.toPrecision(2)), thickness: 12, len: 0.95, x: 0.9 },
+          customdata: d.Pz, hovertemplate: 'x %{x:.2f} mm<br>z %{y:.0f} µm<br>µ %{customdata:.3f} mm⁻¹<extra></extra>' },
+        { x: th, y: tr, xaxis: 'x2', yaxis: 'y2', mode: 'lines', line: { color: '#38bdf8', width: 1.5 } },
+        { x: [d.t_ms], y: [d.transmission_pct], xaxis: 'x2', yaxis: 'y2', mode: 'markers', marker: { color: '#f97316', size: 6 } },
+    ], baseLayout(`3) Smoke plume µ_plume(x,z) | Beam transmission ${d.transmission_pct.toFixed(1)}%`, ins3));
+
+    // 4) Tissue phase
+    Plotly.react('panePhase', [{
+        type: 'heatmap', x, y: z, z: d.Phz, zmin: -0.5, zmax: 3.5, colorscale: PHASE_SCALE, showscale: false, zsmooth: false,
+        customdata: d.Phz.map(r => r.map(v => ['Intact', 'Charred', 'Boiling', 'Ablated / air'][v])),
+        hovertemplate: 'x %{x:.2f} mm<br>z %{y:.0f} µm<br>%{customdata}<extra></extra>',
+    }], baseLayout(`4) Tissue state | t = ${d.t_ms.toFixed(1)} ms | Ablated ${d.ablated_pct.toFixed(1)}% · Boiled ${d.boiled_pct.toFixed(1)}% · Crater ${d.depth_um.toFixed(0)} µm`,
+        { margin: { l: 58, r: 10, t: 30, b: 58 } }));
+}
+
+init();
+</script>
+</body>
+</html>

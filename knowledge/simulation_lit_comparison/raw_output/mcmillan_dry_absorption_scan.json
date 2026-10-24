@@ -1,0 +1,7 @@
+{"note": "Sensitivity probe (triangular pulse, Ta = 500 C): engine centreline depth in um vs dry-tissue absorption fraction (dry mu_a / wet mu_a). Run once, not part of the pass/fail scorecard. Domain depth is 1200 um (400 mJ values of ~1200 are clipped by the domain floor). Measured (OCT): 177 um @100 mJ, 312 um @200 mJ, 399 um @400 mJ.",
+ "0.0":  {"100": 0,   "200": 0,   "400": 0},
+ "0.02": {"100": 285, "200": 585, "400": 967},
+ "0.05": {"100": 382, "200": 690, "400": 1148},
+ "0.1":  {"100": 397, "200": 727, "400": 1200},
+ "0.25": {"100": 383, "200": 705, "400": 1200},
+ "1.0":  {"100": 315, "200": 600, "400": 1133}}
